@@ -13,6 +13,7 @@ This project involves API testing on [Swagger Note API](https://practice.expandt
 - [Newman Report Generator](https://www.npmjs.com/package/newman-reporter-htmlextra)
 
 ## How to Download and Setup the project?
+
 - Clone the project repository using the command `git clone <URL-name>`. Replace `<URL-name>` with the actual URL of the repository. Alternatively, you can download the project as a ZIP file. Look for the 'Download ZIP' option, usually found under the 'Code' dropdown on the repository page.
 - After downloading and extracting the project files, launch Postman. 
 - Create a new Workspace in Postman. You can do this by clicking on the 'New Workspace' button, usually found at the top left corner of the Postman interface. Assign it a name of your choice.
@@ -21,10 +22,3 @@ This project involves API testing on [Swagger Note API](https://practice.expandt
 - Next, navigate to the 'Environment' section, which is located on the left-hand side (LHS) below the collection.
 - Import the environment variable file in the same manner as you did for the collection file. The file you need to import is named `Swagger Note Variables.postman_environment.json`.
 - Now, you're all set to start testing the API with the correct environment variables in place.
-
-
-
-
-## What are tested in this project
-The description for what is being tested and how are tested are available within the Postman request itself.
-
