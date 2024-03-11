@@ -22,3 +22,8 @@ This project involves API testing on [Swagger Note API](https://practice.expandt
 - Next, navigate to the 'Environment' section, which is located on the left-hand side (LHS) below the collection.
 - Import the environment variable file in the same manner as you did for the collection file. The file you need to import is named `Swagger Note Variables.postman_environment.json`.
 - Now, you're all set to start testing the API with the correct environment variables in place.
+
+## How to generate report using newman?
+```
+newman run "Swagger Note API.postman_collection.json" -e "Swagger Note Variables.postman_environment.json" -r htmlextra
+```
