@@ -23,7 +23,15 @@ This project involves API testing on [Swagger Note API](https://practice.expandt
 - Import the environment variable file in the same manner as you did for the collection file. The file you need to import is named `Swagger Note Variables.postman_environment.json`.
 - Now, you're all set to start testing the API with the correct environment variables in place.
 
+***NOTE***: Change the email address, password and other details. For this project i used a Temp email.
+
+## "[DEP0040] The punycode module is deprecated" with Node.js 21.x #9005
+If this error shows up, uninstall the current Node version and install Node.js v20.15.0 (LTS). The problem will be solved.
+
+
 ## How to generate report using newman?
 ```
 newman run "Swagger Note API.postman_collection.json" -e "Swagger Note Variables.postman_environment.json" -r htmlextra
 ```
+
+<img src="screenshot\newman-result.png" alt="Postman Logo" style="max-width:100%;">
