@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e69f050e-2684-4eba-a405-4c468f68a1a8",
+		"_postman_id": "b45687b6-45f0-42ad-8e54-42cf4b572ef3",
 		"name": "Swagger Note API",
 		"description": "StartFragment\n\n## Notes API Documentation\n\nThis API allows you to manage notes and organize them according to different categories.\n\nStartFragment\n\n```\nBase URL: practice.expandtesting.com/notes/api \n\n ```\n\nEndFragmentStartFragment\n\nEndFragmentStartFragment\n\n## Features\n\n- Create notes with title and content.\n- Categorize notes into different categories.\n- Update and delete notes.\n- Search notes by title or category.\n    \n\nThis API is also utilized as a backend for the [Notes App available here]().\n\nEndFragment\n\nStartFragment\n\n## API Authorization Guide\n\nTo use this API, you must first have a valid account on the system and know your email and password. Once you have that information:\n\nLog in to the API using the **login endpoint**. This will provide you with an authentication token that you can use to access the protected resources.\n\nKeep the token safe, as you will need it for subsequent requests.\n\nTo authorize your requests, click the \"**Authorize**\" button on the top right corner of the Swagger UI interface. A dialog box will appear asking you to enter the authentication token.  \nEnter the token you obtained from the login endpoint and click \"**Authorize**\".\n\nYou are now authorized to use all the protected API endpoints.\n\nIf you need help using this API, check out our **video guide and demo**, which are available [here]()\n\nEndFragment",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -21,17 +21,17 @@
 									"    pm.expect(pm.response.code).to.be.eql(200);\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Response time is less than 600ms\", function(){\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(600);\r",
+									"pm.test(\"Response time is less than 400ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
 									"})\r",
 									"\r",
 									"pm.test(\"Response body exist and is not be empty\", function(){\r",
-									"    const responseData = pm.response.json();\r",
+									"    let responseData = pm.response.json();\r",
 									"    pm.expect(responseData).to.exist.and.not.to.be.empty;\r",
 									"})\r",
 									"\r",
 									"pm.test(\"Response body have 'Notes API is Running'\", function () {\r",
-									"    const responseBody = pm.response.json();\r",
+									"    var responseBody = pm.response.json();\r",
 									"    pm.expect(responseBody.message).to.eql(\"Notes API is Running\")\r",
 									"});\r",
 									"\r",
@@ -60,7 +60,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "This is a scenerio where a user tries to check the status of API whether it is up and running or not."
 		},
 		{
 			"name": "Register",
@@ -94,17 +95,18 @@
 									"});\r",
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						},
 						{
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"// Save the email to an environment variable named 'email' before sending the request\r",
-									"pm.environment.set('email', \"dizaster24680@gmail.com\");"
+									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -163,17 +165,18 @@
 									"});\r",
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						},
 						{
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"// Save the email to an environment variable named 'email' before sending the request\r",
-									"pm.environment.set('email', \"dizaster24680@gmail.com\");"
+									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -223,7 +226,8 @@
 									"});\r",
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						},
 						{
@@ -233,7 +237,8 @@
 									"// Save the email to an environment variable named 'email' before sending the request\r",
 									"pm.environment.set('email', \"dizaster24680@gmail.com\");"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -242,7 +247,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Wicked Man\",\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"12\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Wicked Man\",\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -264,7 +269,7 @@
 					"response": []
 				},
 				{
-					"name": "register with GET request",
+					"name": "register with GET request instead of POST",
 					"event": [
 						{
 							"listen": "test",
@@ -342,8 +347,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 404\", function(){\r",
-									"    pm.expect(pm.response.code).to.be.eql(404);\r",
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
 									"})\r",
 									"\r",
 									"pm.test(\"Response time is less than 900ms\", function(){\r",
@@ -354,9 +359,9 @@
 									"    pm.response.to.be.json;\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Response body have 'Not Found'\", function () {\r",
+									"pm.test(\"Response body have 'User name must be between 4 and 30 characters'\", function () {\r",
 									"    let responseBody = pm.response.json();\r",
-									"    pm.expect(responseBody.message).to.eql(\"Not Found\")\r",
+									"    pm.expect(responseBody.message).to.eql(\"User name must be between 4 and 30 characters\")\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Header Content-Type is application/json\", function () {\r",
@@ -364,25 +369,23 @@
 									"});\r",
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						},
 						{
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"// Save the email to an environment variable named 'email' before sending the request\r",
-									"pm.environment.set('email', \"dizaster24680@gmail.com\");"
+									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -436,19 +439,15 @@
 									"    pm.expect(responseData.data).to.exist.and.not.to.be.empty;\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Data property is an object\", function(){\r",
-									"    const responseData = pm.response.json();\r",
-									"    pm.expect(responseData).to.be.an(\"Object\");\r",
-									"})\r",
-									"\r",
 									"pm.test(\"Data property have name 'Wicked man'\", function () {\r",
 									"    const responseBody = pm.response.json();\r",
 									"    pm.expect(responseBody.data.name).to.eql(\"Wicked Man\")\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Data property have email 'dizaster24680@gmail.com'\", function () {\r",
+									"pm.test(\"Data property have email same as email on variable\", function () {\r",
 									"    const responseBody = pm.response.json();\r",
-									"    pm.expect(responseBody.data.email).to.eql(\"dizaster24680@gmail.com\")\r",
+									"    let emailID = pm.environment.get(\"email\")\r",
+									"    pm.expect(responseBody.data.email).to.eql(emailID)\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Header Content-Type is application/json\", function () {\r",
@@ -456,17 +455,18 @@
 									"});\r",
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						},
 						{
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"// Save the email to an environment variable named 'email' before sending the request\r",
-									"pm.environment.set('email', \"dizaster24680@gmail.com\");"
+									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -525,17 +525,18 @@
 									"});\r",
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						},
 						{
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"// Save the email to an environment variable named 'email' before sending the request\r",
-									"pm.environment.set('email', \"dizaster24680@gmail.com\");"
+									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -565,7 +566,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "This is a scenerio where a user tries to create a new account on the server."
 		},
 		{
 			"name": "Login",
@@ -600,7 +602,8 @@
 									"});",
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						},
 						{
@@ -611,7 +614,8 @@
 									"let randomEmail = \"user\" + Math.random().toString().substr(2, 5) + \"@gmail.com\";\r",
 									"pm.environment.set(\"random-email\", randomEmail);"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -704,6 +708,68 @@
 					"response": []
 				},
 				{
+					"name": "login with incorrect credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 900ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(900);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'A valid email address is required'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"A valid email address is required\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"InCorrectEmail\",\r\n    \"password\": \"InCorrectPassword\"\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/login",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						},
+						"description": "Login (POST): This is a negative scenerio where a user tries to login with incorrect password."
+					},
+					"response": []
+				},
+				{
 					"name": "login correctly",
 					"event": [
 						{
@@ -730,11 +796,6 @@
 									"pm.test(\"Data property exist and is not be empty\", function(){\r",
 									"    const responseData = pm.response.json();\r",
 									"    pm.expect(responseData.data).to.exist.and.not.to.be.empty;\r",
-									"})\r",
-									"\r",
-									"pm.test(\"Data property is an object\", function(){\r",
-									"    const responseData = pm.response.json();\r",
-									"    pm.expect(responseData).to.be.an(\"Object\");\r",
 									"})\r",
 									"\r",
 									"pm.test(\"Data property have 'token'\", function () {\r",
@@ -787,13 +848,63 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "This is a scenerio where a user tries to login."
 		},
 		{
 			"name": "GET user profile",
 			"item": [
 				{
-					"name": "retrieve user profile",
+					"name": "GET profile with POST request instead of GET",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(404);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 600ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(600);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Header Content-Type is text/html\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"text/html; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "{{tokenType}}",
+								"value": "{{tokenID}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{apiEndpoint}}/users/profile",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						},
+						"description": "Fetch User Profile (GET) This is a negative scenerio where a user tries to fetch profile information like \\[email, name, id\\] after successful login using POST instead of GET."
+					},
+					"response": []
+				},
+				{
+					"name": "GET user profile correctly",
 					"event": [
 						{
 							"listen": "test",
@@ -821,19 +932,247 @@
 									"    pm.expect(responseData.data).to.exist.and.not.to.be.empty;\r",
 									"})\r",
 									"\r",
-									"pm.test(\"data property is an object\", function(){\r",
-									"    const responseData = pm.response.json();\r",
-									"    pm.expect(responseData).to.be.an(\"Object\");\r",
-									"})\r",
-									"\r",
 									"pm.test(\"Data property have name 'Wicked man'\", function () {\r",
 									"    const responseBody = pm.response.json();\r",
 									"    pm.expect(responseBody.data.name).to.eql(\"Wicked Man\")\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Data property have email 'dizaster24680@gmail.com'\", function () {\r",
+									"pm.test(\"Data property have email same as email on variable\", function () {\r",
 									"    const responseBody = pm.response.json();\r",
-									"    pm.expect(responseBody.data.email).to.eql(\"dizaster24680@gmail.com\")\r",
+									"    let emailID = pm.environment.get(\"email\")\r",
+									"    pm.expect(responseBody.data.email).to.eql(emailID)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "{{tokenType}}",
+								"value": "{{tokenID}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{apiEndpoint}}/users/profile",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						},
+						"description": "Fetch User Profile (GET) This is a positive scenerio where a user tries to fetch profile information like \\[email, name, id\\] after successful login."
+					},
+					"response": []
+				}
+			],
+			"description": "This is a scenerio where a user tries to fetch the profile information."
+		},
+		{
+			"name": "Update user profile",
+			"item": [
+				{
+					"name": "update user profile without required data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 900ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(900);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'User name must be between 4 and 30 characters'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"User name must be between 4 and 30 characters\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phone\": \"{{contact}}\",\r\n    \"company\": \"{{company}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/profile",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						},
+						"description": "Update user profile (PATCH) This is a negative scenerio where a user tries to apply partial modifications to the profile but required data from documentation is missing.\n\nIn this case 'name' is mandatory which is not provided whereas 'phone number' and 'company name' are optional that are provided."
+					},
+					"response": []
+				},
+				{
+					"name": "update user profile correctly",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 900ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(900);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'Profile updated successful'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Profile updated successful\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data property exist and is not be empty\", function(){\r",
+									"    const responseData = pm.response.json();\r",
+									"    pm.expect(responseData.data).to.exist.and.not.to.be.empty;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Data property doesn't have 'Wicked Man'\", function(){\r",
+									"    var responseBody = pm.response.json()\r",
+									"    pm.expect(responseBody.data).to.not.have.property('Wicked Man');\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Data property have name same as name stored on variable\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    let name = pm.environment.get(\"name\")\r",
+									"    pm.expect(responseBody.data.name).to.eql(name)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data property have phone same as phone stored on variable\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    let contact = pm.environment.get(\"contact\")\r",
+									"    pm.expect(responseBody.data.phone).to.eql(contact)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data property have company name same as name stored on variable\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    let company = pm.environment.get(\"company\")\r",
+									"    pm.expect(responseBody.data.company).to.eql(company)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{name}}\",\r\n    \"phone\": \"{{contact}}\",\r\n    \"company\": \"{{company}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/profile",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						},
+						"description": "Update user profile (PATCH) This is a positive scenerio where a user tries to apply partial modifications to the profile.\n\nIn this case 'name' is mandatory whereas 'phone number' and 'company name' are optional."
+					},
+					"response": []
+				}
+			],
+			"description": "This is a scenerio where a user tries to update his/her profile."
+		},
+		{
+			"name": "GET user profile after updating profile",
+			"item": [
+				{
+					"name": "GET user profile after updating profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 600ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(600);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'profile successful'\", function () {\r",
+									"    const responseBody = pm.response.json()\r",
+									"    pm.expect(responseBody.message).to.eql(\"Profile successful\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data property exist and is not be empty\", function(){\r",
+									"    const responseData = pm.response.json();\r",
+									"    pm.expect(responseData.data).to.exist.and.not.to.be.empty;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Data property have name 'Prabesh'\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.data.name).to.eql(\"Prabesh\")\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Header Content-Type is application/json\", function () {\r",
@@ -866,17 +1205,77 @@
 								"profile"
 							]
 						},
-						"description": "Fetch User Profile (GET) This is a positive scenerio where a user tries to fetch profile information like \\[email, name, id\\] after successful login."
+						"description": "Fetch User Profile (GET) This is a positive scenerio where a user tries to fetch new profile information after updating the old user profile."
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "This is a scenerio where a user tries to fetch the profile after updating his/her profile."
 		},
 		{
-			"name": "Update user profile",
+			"name": "Forget Password",
 			"item": [
 				{
-					"name": "update user profile",
+					"name": "send reset password link on unregistered email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(401);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 600ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(600);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'No account found with the given email address'\", function () {\r",
+									"    const responseBody = pm.response.json()\r",
+									"    pm.expect(responseBody.message).to.eql(\"No account found with the given email address\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"{{random-email}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/forgot-password",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"forgot-password"
+							]
+						},
+						"description": "Forget Password (POST): This is a negative scenerio where a user tries to send link to an unregistered email to reset password."
+					},
+					"response": []
+				},
+				{
+					"name": "send reset password link on registered email",
 					"event": [
 						{
 							"listen": "test",
@@ -886,42 +1285,82 @@
 									"    pm.expect(pm.response.code).to.be.eql(200);\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Response time is less than 900ms\", function(){\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(900);\r",
+									"pm.test(\"Response time is less than 600ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(600);\r",
 									"})\r",
 									"\r",
 									"pm.test('Response body is in JSON', function(){\r",
 									"    pm.response.to.be.json;\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Response body have 'Profile updated successful'\", function () {\r",
+									"pm.test(\"Response body have 'Password reset link successfully sent to email from variable\", function () {\r",
+									"    const responseBody = pm.response.json()\r",
+									"    let emailID = pm.environment.get(\"email\")\r",
+									"    pm.expect(responseBody.message).to.eql(\"Password reset link successfully sent to \" + emailID + \". Please verify by clicking on the given link\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"{{email}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/forgot-password",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"forgot-password"
+							]
+						},
+						"description": "Forget Password (POST): This is a positive scenerio where a user tries to send link to an registered email to reset password."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Change password",
+			"item": [
+				{
+					"name": "change password with same password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response message have 'The new password should be different from the current password'\", function () {\r",
 									"    let responseBody = pm.response.json();\r",
-									"    pm.expect(responseBody.message).to.eql(\"Profile updated successful\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Data property exist and is not be empty\", function(){\r",
-									"    const responseData = pm.response.json();\r",
-									"    pm.expect(responseData.data).to.exist.and.not.to.be.empty;\r",
-									"})\r",
-									"\r",
-									"pm.test(\"Data property is an object\", function(){\r",
-									"    const responseData = pm.response.json();\r",
-									"    pm.expect(responseData).to.be.an(\"Object\");\r",
-									"})\r",
-									"\r",
-									"pm.test(\"Data property have name 'Prabesh'\", function () {\r",
-									"    const responseBody = pm.response.json();\r",
-									"    pm.expect(responseBody.data.name).to.eql(\"Prabesh\")\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Data property have phone '9849934429'\", function () {\r",
-									"    const responseBody = pm.response.json();\r",
-									"    pm.expect(responseBody.data.phone).to.eql(\"9849934429\")\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Data property have company 'IT Solutions'\", function () {\r",
-									"    const responseBody = pm.response.json();\r",
-									"    pm.expect(responseBody.data.company).to.eql(\"It Solutions\")\r",
+									"    pm.expect(responseBody.message).to.eql(\"The new password should be different from the current password\");\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Header Content-Type is application/json\", function () {\r",
@@ -936,11 +1375,11 @@
 						}
 					],
 					"request": {
-						"method": "PATCH",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"{{name}}\",\r\n    \"phone\": \"{{contact}}\",\r\n    \"company\": \"{{company}}\"\r\n  }\r\n\r\n  ",
+							"raw": "{\r\n    \"currentPassword\": \"{{password}}\",\r\n    \"newPassword\": \"{{password}}\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -948,26 +1387,21 @@
 							}
 						},
 						"url": {
-							"raw": "{{apiEndpoint}}/users/profile",
+							"raw": "{{apiEndpoint}}/users/change-password",
 							"host": [
 								"{{apiEndpoint}}"
 							],
 							"path": [
 								"users",
-								"profile"
+								"change-password"
 							]
 						},
-						"description": "Update user profile (PATCH) This is a positive scenerio where a user tries to apply partial modifications to the profile.\n\nIn this case 'name' is mandatory whereas 'phone number' and 'company name' are optional."
+						"description": "Change password (POST) This is a negative scenerio where a user tries to change the current password with same current password."
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "Change password",
-			"item": [
+				},
 				{
-					"name": "change password",
+					"name": "change password with new password",
 					"event": [
 						{
 							"listen": "test",
@@ -1027,7 +1461,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "This is a scenerio where a user tries to change current password."
 		},
 		{
 			"name": "Logout",
@@ -1077,10 +1512,11 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "This is a scenerio where a user tries to logout of a current session."
 		},
 		{
-			"name": "Login with new password",
+			"name": "Login with old password",
 			"item": [
 				{
 					"name": "login via. old password",
@@ -1143,7 +1579,13 @@
 						"description": "Login with old password (POST) This is a negative scenerio where a user tries to log in with old password."
 					},
 					"response": []
-				},
+				}
+			],
+			"description": "This is a scenerio where a user tries to login with old password."
+		},
+		{
+			"name": "Login with new password",
+			"item": [
 				{
 					"name": "login via. new password",
 					"event": [
@@ -1171,11 +1613,6 @@
 									"pm.test(\"Data property exist and is not be empty\", function(){\r",
 									"    const responseData = pm.response.json();\r",
 									"    pm.expect(responseData.data).to.exist.and.not.to.be.empty;\r",
-									"})\r",
-									"\r",
-									"pm.test(\"Data property is an object\", function(){\r",
-									"    const responseData = pm.response.json();\r",
-									"    pm.expect(responseData).to.be.an(\"Object\");\r",
 									"})\r",
 									"\r",
 									"pm.test(\"Data property have 'token'\", function () {\r",
@@ -1228,13 +1665,14 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "This is a scenerio where a user tries to login with new password."
 		},
 		{
 			"name": "Create note",
 			"item": [
 				{
-					"name": "create note without auth",
+					"name": "create note without auth token",
 					"event": [
 						{
 							"listen": "test",
@@ -1257,23 +1695,12 @@
 									"    pm.expect(responseBody.message).to.eql(\"No authentication token specified in x-auth-token header\")\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Response header have content-type\", function(){\r",
-									"    pm.response.to.have.header(\"content-type\")\r",
-									"})\r",
-									"\r",
-									"\r",
-									"\r",
-									"\r",
-									"\r",
-									"\r",
-									"\r",
-									"\r",
-									"\r",
-									"\r",
-									"\r",
-									""
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -1307,12 +1734,12 @@
 								"notes"
 							]
 						},
-						"description": "Create note without auth (POST) This is a negative scenerio where a user tries to create note without authentication."
+						"description": "Create note without auth (POST) This is a negative scenerio where a user tries to create note without authentication token."
 					},
 					"response": []
 				},
 				{
-					"name": "create note with auth",
+					"name": "create note with auth token",
 					"event": [
 						{
 							"listen": "test",
@@ -1330,22 +1757,18 @@
 									"    pm.response.to.be.json;\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Data property is an object\", function(){\r",
-									"    const responseData = pm.response.json();\r",
-									"    pm.expect(responseData).to.be.an(\"Object\");\r",
-									"})\r",
-									"\r",
 									"pm.test(\"Data property must exist and must not be empty\", function(){\r",
 									"    const responseData = pm.response.json();\r",
 									"    pm.expect(responseData.data).to.exist.and.not.to.be.empty;\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Data property have 'note id'\", function () {\r",
-									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
-									"});\r",
-									"\r",
 									"pm.test(\"Data property have 'title'\", function () {\r",
 									"    pm.expect(pm.response.text()).to.include(\"title\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data property have category 'Home'\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.data.category).to.eql(\"Home\")\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Data property have completed status 'false'\", function () {\r",
@@ -1353,31 +1776,23 @@
 									"    pm.expect(responseBody.data.completed).to.eql(false)\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Response header have content-type\", function(){\r",
-									"    pm.response.to.have.header(\"content-type\")\r",
-									"})\r",
+									"pm.test(\"Response body have title 'Death Note'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.data.title).to.eql(\"Death Note\")\r",
+									"});\r",
 									"\r",
-									"// JSON parsing\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"// Store id from response as note_id variable\r",
 									"const responseData = pm.response.json();\r",
-									"\r",
-									"// Check if it prints id or not from message on console\r",
 									"console.log(responseData.data.id)\r",
-									"\r",
-									"// responmseData.data.id gets new id everytime and stores in collection variable named 'id'. \r",
-									"// If id variable is already present in collection variable it will be update in current value section\r",
 									"pm.environment.set('noteID', responseData.data.id)\r",
-									"console.log(responseData.data.id)\r",
-									"\r",
-									"\r",
-									"\r",
-									"\r",
-									"\r",
-									"\r",
-									"\r",
-									"\r",
-									""
+									"console.log(responseData.data.id)"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -1412,13 +1827,14 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "This is a scenerio where a user tries to create a note on the server."
 		},
 		{
-			"name": "Retrieve all notes",
+			"name": "GET all notes",
 			"item": [
 				{
-					"name": "retrieve all notes without auth",
+					"name": "GET all notes without auth",
 					"event": [
 						{
 							"listen": "test",
@@ -1441,17 +1857,9 @@
 									"    pm.expect(responseBody.message).to.eql(\"No authentication token specified in x-auth-token header\")\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Response header have content-type\", function(){\r",
-									"    pm.response.to.have.header(\"content-type\")\r",
-									"})\r",
-									"\r",
-									"\r",
-									"\r",
-									"\r",
-									"\r",
-									"\r",
-									"\r",
-									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
 									"\r",
 									"\r",
 									"\r",
@@ -1487,7 +1895,7 @@
 					"response": []
 				},
 				{
-					"name": "retrieve all notes with auth",
+					"name": "GET all notes with auth",
 					"event": [
 						{
 							"listen": "test",
@@ -1505,27 +1913,18 @@
 									"    pm.response.to.be.json;\r",
 									"})\r",
 									"\r",
-									"pm.test(\"data property is an object\", function(){\r",
-									"    const responseData = pm.response.json();\r",
-									"    pm.expect(responseData).to.be.an(\"Object\");\r",
-									"})\r",
-									"\r",
 									"pm.test(\"Data property must exist and must not be empty\", function(){\r",
 									"    const responseData = pm.response.json();\r",
 									"    pm.expect(responseData.data).to.exist.and.not.to.be.empty;\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Data property have 'note id'\", function () {\r",
-									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
-									"});\r",
-									"\r",
 									"pm.test(\"Data property have 'title'\", function () {\r",
 									"    pm.expect(pm.response.text()).to.include(\"title\");\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Response header have content-type\", function(){\r",
-									"    pm.response.to.have.header(\"content-type\")\r",
-									"})"
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -1553,13 +1952,14 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "This is a scenerio where a user tries to fetch all the notes from the server."
 		},
 		{
 			"name": "GET note by id",
 			"item": [
 				{
-					"name": "retrieve note by id without auth",
+					"name": "GET note by id without auth",
 					"event": [
 						{
 							"listen": "test",
@@ -1619,12 +2019,12 @@
 								}
 							]
 						},
-						"description": "Fetch note by without auth (GET) This is a negative scenerio where a user tries to get note by id without authentication.\n\nHere i set 'note id' as Path Variables instead of passing it directly on URL."
+						"description": "Fetch note by with auth and correct note id (GET) This is a negative scenerio where a user tries to get note by id without authentication.\n\nHere i set 'note id' as Path Variables instead of passing it directly on URL."
 					},
 					"response": []
 				},
 				{
-					"name": "retrieve note by invalid id witth auth",
+					"name": "GET note by invalid id with auth",
 					"event": [
 						{
 							"listen": "test",
@@ -1686,7 +2086,7 @@
 					"response": []
 				},
 				{
-					"name": "retrieve note by id with auth",
+					"name": "GET note by id with auth",
 					"event": [
 						{
 							"listen": "test",
@@ -1702,11 +2102,6 @@
 									"\r",
 									"pm.test('Response body is in JSON', function(){\r",
 									"    pm.response.to.be.json;\r",
-									"})\r",
-									"\r",
-									"pm.test(\"data property is an object\", function(){\r",
-									"    const responseData = pm.response.json();\r",
-									"    pm.expect(responseData).to.be.an(\"Object\");\r",
 									"})\r",
 									"\r",
 									"pm.test(\"Data property must exist and must not be empty\", function(){\r",
@@ -1760,7 +2155,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "This is a scenerio where a user tries to fetch the specific note by id."
 		},
 		{
 			"name": "Update note by id",
@@ -1776,7 +2172,6 @@
 									"    pm.expect(pm.response.code).to.be.eql(200);\r",
 									"})\r",
 									"\r",
-									"\r",
 									"pm.test(\"Response time is less than 1000ms\", function(){\r",
 									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
 									"})\r",
@@ -1785,22 +2180,28 @@
 									"    pm.response.to.be.json;\r",
 									"})\r",
 									"\r",
-									"pm.test(\"data property is an object\", function(){\r",
-									"    const responseData = pm.response.json();\r",
-									"    pm.expect(responseData).to.be.an(\"Object\");\r",
-									"})\r",
-									"\r",
 									"pm.test(\"Data property must exist and must not be empty\", function(){\r",
 									"    const responseData = pm.response.json();\r",
 									"    pm.expect(responseData.data).to.exist.and.not.to.be.empty;\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Data property have 'note id'\", function () {\r",
-									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
-									"});\r",
-									"\r",
 									"pm.test(\"Data property have 'title'\", function () {\r",
 									"    pm.expect(pm.response.text()).to.include(\"title\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data property have category 'Work'\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.data.category).to.eql(\"Work\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data property have completed status 'true'\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.data.completed).to.eql(true)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body have title 'Tokyo Ghoul'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.data.title).to.eql(\"Tokyo Ghoul\")\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Header Content-Type is application/json\", function () {\r",
@@ -1808,7 +2209,8 @@
 									"});\r",
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -1850,13 +2252,14 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "This is a scenerio where a user tries to update the specifc note by id."
 		},
 		{
-			"name": "update complete status of note",
+			"name": "GET note by id after updating note",
 			"item": [
 				{
-					"name": "update complete status by id",
+					"name": "GET note by id with auth after update",
 					"event": [
 						{
 							"listen": "test",
@@ -1874,14 +2277,87 @@
 									"    pm.response.to.be.json;\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Data property is an object\", function(){\r",
-									"    const responseData = pm.response.json();\r",
-									"    pm.expect(responseData).to.be.an(\"Object\");\r",
-									"})\r",
-									"\r",
 									"pm.test(\"Data property must exist and must not be empty\", function(){\r",
 									"    const responseData = pm.response.json();\r",
 									"    pm.expect(responseData.data).to.exist.and.not.to.be.empty;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Data property have category 'Work'\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.data.category).to.eql(\"Work\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data property have completed status 'true'\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.data.completed).to.eql(true)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body have title 'Tokyo Ghoul'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.data.title).to.eql(\"Tokyo Ghoul\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{apiEndpoint}}/notes/:id",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{noteID}}"
+								}
+							]
+						},
+						"description": "Fetch note by with auth and correct note id (GET) This is a positive scenerio where a user tries to get note by id with proper authentication and with correct note id after updating the note."
+					},
+					"response": []
+				}
+			],
+			"description": "This is a scenerio where a user tries to fetch note by id after note is being updated."
+		},
+		{
+			"name": "update complete status of note by id",
+			"item": [
+				{
+					"name": "update complete status of note by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
 									"})\r",
 									"\r",
 									"pm.test(\"Data property have completed status 'false'\", function () {\r",
@@ -1935,11 +2411,66 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "This is a scenerio where a user tries to modify 'complete' status from the note by id."
 		},
 		{
 			"name": "Delete note by id",
 			"item": [
+				{
+					"name": "delete note by incorrect id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status is 404\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(404);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 700ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(700);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Header Content-Type is text/html\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"text/html; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{apiEndpoint}}/notes/:id",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "#&"
+								}
+							]
+						},
+						"description": "Delete note by id (DEL) This is a negative scenerio where a user tries to delete the note with proper authentication but incorrect note id."
+					},
+					"response": []
+				},
 				{
 					"name": "delete note by id",
 					"event": [
@@ -2003,13 +2534,135 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "This is a scenerio where a user tries to delete the note by id."
+		},
+		{
+			"name": "GET note by id after deleting note",
+			"item": [
+				{
+					"name": "GET note by id with auth after deleting note",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(404);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'No note was found with the provided ID, Maybe it was deleted'\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"No note was found with the provided ID, Maybe it was deleted\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{apiEndpoint}}/notes/:id",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{noteID}}"
+								}
+							]
+						},
+						"description": "Fetch note by with auth and correct note id (GET) This is a positive scenerio where a user tries to get note by id with proper authentication and with correct note id after deleting note."
+					},
+					"response": []
+				}
+			],
+			"description": "This is a scenerio where a user tries to fetch the note by id after deleting it."
 		},
 		{
 			"name": "Delete account",
 			"item": [
 				{
-					"name": "delete account",
+					"name": "delete account without auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(401);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 400ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response message have 'No authentication token specified in x-auth-token header'\", function () {\r",
+									"    var responseData = pm.response.json();\r",
+									"    pm.expect(responseData.message).to.eql(\"No authentication token specified in x-auth-token header\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{apiEndpoint}}/users/delete-account",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"delete-account"
+							]
+						},
+						"description": "Delete account (DEL) This is a begative scenerio where a user tries to delete the account permanently without proper authentication."
+					},
+					"response": []
+				},
+				{
+					"name": "delete account with auth",
 					"event": [
 						{
 							"listen": "test",
@@ -2055,6 +2708,72 @@
 							]
 						},
 						"description": "Delete account (DEL) This is a positive scenerio where a user tries to delete the account permanently with proper authentication."
+					},
+					"response": []
+				}
+			],
+			"description": "This is a scenerio where a user tries to delete the account permanently."
+		},
+		{
+			"name": "Login after account delete",
+			"item": [
+				{
+					"name": "Login after account delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(401);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 600ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(600);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'Incorrect email address or password'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Incorrect email address or password\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{newPass}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/login",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						},
+						"description": "Login with new password (POST) This is a positive scenerio where a user tries to log in with new password."
 					},
 					"response": []
 				}
