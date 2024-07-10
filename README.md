@@ -12,7 +12,22 @@ This project involves API testing on [Swagger Note API](https://practice.expandt
 - [npm, nodejs](https://nodejs.org/en/download), 
 - [Newman Report Generator](https://www.npmjs.com/package/newman-reporter-htmlextra)
 
-## How to Download and Setup the project?
+## What are tested?
+- Covered all API endpoints for both `positive and negative scenarios` expect two of them. 
+- All API requests are organized under `collection` folder properly so that they can be executed using a Postman's "Run collection" feature without the need to manually run each API one by one.
+- Validate response via. different types of assertions, such as `response code, response time, response header, schema validation and more`.
+- Handle dynamic elements like the `token key`, which changes every time during a new login, by storing the captured token in an `environment variable` each time a new token is generated and updating it with the last one.
+- Identified `minor and critical bugs`.
+- Generate HTML report using `Newman Report Generator`. The report is generated in the `newman` folder
+
+## What are not tested?
+- 2 API endpoints 1Forget password1 and `Verify reset password token` are not tested because `Forget password` doesn't sent password reset link to the email despite email being correct. 
+**NOTE**: This feature was working but now its not working.
+
+## Challanges faced during API testing?
+During the `forgot password` process, the server sends a password reset link to an email address. However, during the `Verify reset password token` step, it is confusing to determine which token to insert for verification. I later realized that the token value is located at the end of the password reset link after the ‘/’ character.
+
+## How to Download and Setup the Project?
 
 - Clone the project repository using the command `git clone <URL-name>`. Replace `<URL-name>` with the actual URL of the repository. Alternatively, you can download the project as a ZIP file. Look for the 'Download ZIP' option, usually found under the 'Code' dropdown on the repository page.
 - After downloading and extracting the project files, launch Postman. 
@@ -25,13 +40,9 @@ This project involves API testing on [Swagger Note API](https://practice.expandt
 
 ***NOTE***: Change the email address, password and other details. For this project i used a Temp email.
 
-## "[DEP0040] The punycode module is deprecated" with Node.js 21.x #9005
-If this error shows up, uninstall the current Node version and install Node.js v20.15.0 (LTS). The problem will be solved.
-
-
 ## How to generate report using newman?
 ```
 newman run "Swagger Note API.postman_collection.json" -e "Swagger Note Variables.postman_environment.json" -r htmlextra
 ```
 
-<img src="screenshot\newman-result.png" alt="Postman Logo" style="max-width:100%;">
+<img src="screenshot\newman-result.png" alt="Newman Report" style="max-width:100%;">
