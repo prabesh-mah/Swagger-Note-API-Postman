@@ -3,8 +3,7 @@
 
 # Swagger Note
 
-This project involves API testing on [Swagger Note API](https://practice.expandtesting.com/notes/api/api-docs/) using `Postman`. I've handled dynamic token through the help of assertions. This includes a variety of checks such as verifying the `status code`, `assessing the response time`, `validating the format of the response body (ensuring it is in JSON format)`, `checking if the response message contains specific keywords`, and `confirming that the response header content type is application/json`. These comprehensive assertions enhance the robustness and reliability of the system.
-
+This project involves API testing on [Swagger Note API](https://practice.expandtesting.com/notes/api/api-docs/) using `Postman`. The Note API operates by creating a user account and facilitating login. After successful login, it generates a dynamic authentication token known as `x-auth-token`. Subsequently, authorization is required to access specific resources, such as creating, retrieving notes etc.
 ## Requirements
 
 - [Git](https://git-scm.com/downloads),
@@ -13,7 +12,7 @@ This project involves API testing on [Swagger Note API](https://practice.expandt
 - [Newman Report Generator](https://www.npmjs.com/package/newman-reporter-htmlextra)
 
 ## What are tested?
-- Covered all API endpoints for both `positive and negative scenarios` expect two of them. 
+- Covered all API endpoints for both `positive and negative scenarios` except two of them. 
 - All API requests are organized under `collection` folder properly so that they can be executed using a Postman's "Run collection" feature without the need to manually run each API one by one.
 - Validate response via. different types of assertions, such as `response code, response time, response header, schema validation and more`.
 - Handle dynamic elements like the `token key`, which changes every time during a new login, by storing the captured token in an `environment variable` each time a new token is generated and updating it with the last one.
@@ -54,4 +53,3 @@ newman run "Swagger Note API.postman_collection.json" -e "Swagger Note Variables
 
 ## Load Testing
 Result for Load Testing is comming soon.
-
