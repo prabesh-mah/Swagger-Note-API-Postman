@@ -49,7 +49,3 @@ newman run "Swagger Note API.postman_collection.json" -e "QA-Environment.postman
 ```
 
 <img src="screenshot\newman-result.png" alt="Newman Report" style="max-width:100%;">
-
-
-## Load Testing
-The results for load testing are coming soon as I’m planning to run performance tests from Postman to identify bottlenecks and determine which requests are experiencing issues.
