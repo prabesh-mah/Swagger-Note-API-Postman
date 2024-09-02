@@ -1,0 +1,4944 @@
+{
+	"info": {
+		"_postman_id": "b45687b6-45f0-42ad-8e54-42cf4b572ef3",
+		"name": "Swagger Note API",
+		"description": "StartFragment\n\n## Notes API Documentation\n\nThis API allows you to manage notes and organize them according to different categories.\n\nStartFragment\n\n```\nBase URL: practice.expandtesting.com/notes/api \n\n ```\n\nEndFragmentStartFragment\n\nEndFragmentStartFragment\n\n## Features\n\n- Create notes with title and content.\n- Categorize notes into different categories.\n- Update and delete notes.\n- Search notes by title or category.\n    \n\nThis API is also utilized as a backend for the [Notes App available here]().\n\nEndFragment\n\nStartFragment\n\n## API Authorization Guide\n\nTo use this API, you must first have a valid account on the system and know your email and password. Once you have that information:\n\nLog in to the API using the **login endpoint**. This will provide you with an authentication token that you can use to access the protected resources.\n\nKeep the token safe, as you will need it for subsequent requests.\n\nTo authorize your requests, click the \"**Authorize**\" button on the top right corner of the Swagger UI interface. A dialog box will appear asking you to enter the authentication token.  \nEnter the token you obtained from the login endpoint and click \"**Authorize**\".\n\nYou are now authorized to use all the protected API endpoints.\n\nIf you need help using this API, check out our **video guide and demo**, which are available [here]()\n\nEndFragment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28982036"
+	},
+	"item": [
+		{
+			"name": "Check health",
+			"item": [
+				{
+					"name": "check health is up or not",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have message 'Notes API is Running'\", function () {\r",
+									"    var responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Notes API is Running\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiEndpoint}}/health-check",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"health-check"
+							]
+						},
+						"description": "Check Health (GET): This is a positive scenerio where a user tries to check the status of API whether it is up and running or not."
+					},
+					"response": []
+				},
+				{
+					"name": "check response time for health check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have message 'Notes API is Running'\", function () {\r",
+									"    var responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Notes API is Running\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiEndpoint}}/health-check",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"health-check"
+							]
+						},
+						"description": "Check Health (GET): This is a positive scenerio where a user tries to check the response time of API."
+					},
+					"response": []
+				}
+			],
+			"description": "This is a scenerio where a user tries to check the status of API whether it is up and running or not."
+		},
+		{
+			"name": "Register",
+			"item": [
+				{
+					"name": "register with GET request instead of POST",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(404);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'Not Found'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Not Found\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/register",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						},
+						"description": "Register (POST): This is a negative scenerio where a user tries to register account with GET request instead of POST."
+					},
+					"response": []
+				},
+				{
+					"name": "register with invalid api endpoint",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(404);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Header Content-Type is text/html\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"text/html; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/register12345",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"register12345"
+							]
+						},
+						"description": "Register (POST): This is a negative scenerio where a user tries to register account with incorrect/invalid API endpoint."
+					},
+					"response": []
+				},
+				{
+					"name": "register with password below 6 characters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'Password must be between 6 and 30 characters'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Password must be between 6 and 30 characters\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"12\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/register",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						},
+						"description": "Register (POST): This is a negative scenerio where a user tries to register account with password that is below 6 character."
+					},
+					"response": []
+				},
+				{
+					"name": "register with password above 30 characters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'Password must be between 6 and 30 characters'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Password must be between 6 and 30 characters\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"This is password above thirty characters\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/register",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						},
+						"description": "Register (POST): This is a negative scenerio where a user tries to register account with password that is above 30 characters."
+					},
+					"response": []
+				},
+				{
+					"name": "register with invalid email format",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'A valid email address is required'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"A valid email address is required\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"email\": \"123@@gmail@com\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/register",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						},
+						"description": "Register (POST): This is a negative scenerio where a user tries to register account with email id that is of invalid format."
+					},
+					"response": []
+				},
+				{
+					"name": "register with empty name field",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have message 'Name field is manadatory'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Name field is manadatory\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"\",\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/register",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						},
+						"description": "Register (POST): This is a negative scenerio where a user tries to register account with empty name field which is madatory."
+					},
+					"response": []
+				},
+				{
+					"name": "register with empty email field",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have message 'Email field is mandatory'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Email field is mandatory\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"email\": \"\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/register",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						},
+						"description": "Register (POST): This is a negative scenerio where a user tries to register account with empty email field which is madatory."
+					},
+					"response": []
+				},
+				{
+					"name": "register with empty password field",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have message 'Password field is mandatory'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Password field is mandatory\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/register",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						},
+						"description": "Register (POST): This is a negative scenerio where a user tries to register account with empty password field which is madatory."
+					},
+					"response": []
+				},
+				{
+					"name": "register with empty mandatory fields",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'Mandatory fields cannot be left empty'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Mandatory fields cannot be left empty\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"\",\r\n    \"email\": \"\",\r\n    \"password\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/register",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						},
+						"description": "Register (POST): This is a negative scenerio where a user tries to register account with all mandatory fields left empty."
+					},
+					"response": []
+				},
+				{
+					"name": "register with weak password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(201);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'Password is weak'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Password is weak\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data property have name same as name stored on variable\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    pm.environment.set('name', responseBody.data.name)\r",
+									"    let name = pm.environment.get(\"name\")\r",
+									"    pm.expect(responseBody.data.name).to.eql(name)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data property have email same as email stored on variable\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    pm.environment.set('email', responseBody.data.email)\r",
+									"    let emailID = pm.environment.get(\"email\")\r",
+									"    pm.expect(responseBody.data.email).to.eql(emailID)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"// Schema Structure\r",
+									"const schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"success\": {\r",
+									"      \"type\": \"boolean\"\r",
+									"    },\r",
+									"    \"status\": { \r",
+									"      \"type\": \"integer\"\r",
+									"    },\r",
+									"    \"message\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"data\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"id\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"name\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"email\": {\r",
+									"          \"type\": \"string\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"id\",\r",
+									"        \"name\",\r",
+									"        \"email\" \r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"success\",\r",
+									"    \"status\",\r",
+									"    \"message\",\r",
+									"    \"data\"\r",
+									"  ]\r",
+									"}\r",
+									"\r",
+									"// Schema Validation\r",
+									"pm.test(\"Scema Validation\", ()=> {\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/register",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						},
+						"description": "Register (POST): This is a negative scenerio where a user tries to register account with password that is in between range but weak."
+					},
+					"response": []
+				},
+				{
+					"name": "register with already registered email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 409\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(409);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'An account already exists with the same email address'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"An account already exists with the same email address\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"const schema = {\r",
+									"    \"type\" : \"object\",\r",
+									"    \"properties\" : {\r",
+									"        \"success\": {\r",
+									"            \"type\": \"boolean\"\r",
+									"        },\r",
+									"        \"status\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"message\": {\r",
+									"            \"type\" : \"string\"\r",
+									"        },\r",
+									"        \"required\" : {\r",
+									"            \"type\" : \"array\",\r",
+									"            \"items\" : {\r",
+									"                \"type\" : \"string\"\r",
+									"            }\r",
+									"        }\r",
+									"     \r",
+									"    }\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Schema Validation\", ()=> {\r",
+									"    pm.response.to.have.jsonSchema(schema)\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/register",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						},
+						"description": "Register (POST): This is a negative scenerio where a user tries to register account with alerady registered email address."
+					},
+					"response": []
+				}
+			],
+			"description": "This is a scenerio where a user tries to create a new account on the server."
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "login with empty email field",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Removed redundant tests and fixed the error",
+									"pm.test(\"Status code is 400\", function(){",
+									"    pm.expect(pm.response.code).to.be.eql(400);",
+									"})",
+									"",
+									"pm.test(\"Response time is less than 1500ms\", function(){",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);",
+									"})",
+									"",
+									"pm.test('Response body is in JSON', function(){",
+									"    pm.response.to.be.json;",
+									"})",
+									"",
+									"pm.test(\"Response body have 'Email field is mandatory'\", function () {",
+									"    let responseBody = pm.response.json();",
+									"    pm.expect(responseBody.message).to.eql(\"Email field is mandatory\")",
+									"});",
+									"",
+									"pm.test(\"Header Content-Type is application/json\", function () {",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/login",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						},
+						"description": "Login (POST): This is a negative scenerio where a user tries to login with empty email address field."
+					},
+					"response": []
+				},
+				{
+					"name": "login with empty password field",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Removed redundant tests and fixed the error",
+									"pm.test(\"Status code is 400\", function(){",
+									"    pm.expect(pm.response.code).to.be.eql(400);",
+									"})",
+									"",
+									"pm.test(\"Response time is less than 1500ms\", function(){",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);",
+									"})",
+									"",
+									"pm.test('Response body is in JSON', function(){",
+									"    pm.response.to.be.json;",
+									"})",
+									"",
+									"pm.test(\"Response body have 'Password field is mandatory'\", function () {",
+									"    let responseBody = pm.response.json();",
+									"    pm.expect(responseBody.message).to.eql(\"Password field is mandatory\")",
+									"});",
+									"",
+									"pm.test(\"Header Content-Type is application/json\", function () {",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/login",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						},
+						"description": "Login (POST): This is a negative scenerio where a user tries to login with empty password field."
+					},
+					"response": []
+				},
+				{
+					"name": "login with empty mandatory fields",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Removed redundant tests and fixed the error",
+									"pm.test(\"Status code is 400\", function(){",
+									"    pm.expect(pm.response.code).to.be.eql(400);",
+									"})",
+									"",
+									"pm.test(\"Response time is less than 1500ms\", function(){",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);",
+									"})",
+									"",
+									"pm.test('Response body is in JSON', function(){",
+									"    pm.response.to.be.json;",
+									"})",
+									"",
+									"pm.test(\"Response body have message 'Mandatory fields cannot be left empty'\", function () {",
+									"    let responseBody = pm.response.json();",
+									"    pm.expect(responseBody.message).to.eql(\"Mandatory fields cannot be left empty\")",
+									"});",
+									"",
+									"pm.test(\"Header Content-Type is application/json\", function () {",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"\",\r\n    \"password\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/login",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						},
+						"description": "Login (POST): This is a negative scenerio where a user tries to login with empty mandatory fields."
+					},
+					"response": []
+				},
+				{
+					"name": "login with incorrect email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(401);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'Incorrect email address or password'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Incorrect email address or password\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/login",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						},
+						"description": "Login (POST): This is a negative scenerio where a user tries to login with incorrect email."
+					},
+					"response": []
+				},
+				{
+					"name": "login with incorrect password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(401);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'Incorrect email address or password'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Incorrect email address or password\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{$randomPassword}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/login",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						},
+						"description": "Login (POST): This is a negative scenerio where a user tries to login with incorrect password."
+					},
+					"response": []
+				},
+				{
+					"name": "login with both incorrect",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(401);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'Incorrect email address or password'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Incorrect email address or password\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"{{$randomPassword}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/login",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						},
+						"description": "Login (POST): This is a negative scenerio where a user tries to login with both incorrect."
+					},
+					"response": []
+				},
+				{
+					"name": "login with valid credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Resonse body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'login successful'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Login successful\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data property have 'token'\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"token\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Login have cookie\", function () {\r",
+									"    pm.expect(Object.keys(pm.cookies.toObject()).length).to.be.above(0);\r",
+									"});\r",
+									"\r",
+									"// store dynamic token value on environment variable with name 'tokenID'\r",
+									"const responseData = pm.response.json();\r",
+									"console.log(responseData.data.id)\r",
+									"pm.environment.set('token', responseData.data.token)\r",
+									"\r",
+									"// Schema Structure\r",
+									"const schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"success\": {\r",
+									"      \"type\": \"boolean\"\r",
+									"    },\r",
+									"    \"status\": { \r",
+									"      \"type\": \"integer\"\r",
+									"    },\r",
+									"    \"message\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"data\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"id\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"name\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"email\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"token\": {\r",
+									"            \"type\": \"string\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"id\",\r",
+									"        \"name\",\r",
+									"        \"email\",\r",
+									"        \"token\" \r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"success\",\r",
+									"    \"status\",\r",
+									"    \"message\",\r",
+									"    \"data\"\r",
+									"  ]\r",
+									"}\r",
+									"\r",
+									"// Schema Validation\r",
+									"pm.test(\"Scema Validation\", ()=> {\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/login",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						},
+						"description": "Login (POST): This is a positive scenerio where a user tries to login with correct credentials.\n\nWhen a user logs in successfully, the server generates a dynamic token as part of the response body. However, this token changes each time the user logs out and logs back in. To handle this scenario, I’ve written assertions in my test scripts. These assertions store the newly generated token in an environment variable named ‘tokenID’ every time the user logs in again."
+					},
+					"response": []
+				}
+			],
+			"description": "This is a scenerio where a user tries to login."
+		},
+		{
+			"name": "GET user profile",
+			"item": [
+				{
+					"name": "GET profile with POST request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(404);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Header Content-Type is text/html\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"text/html; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "{{tokenType}}",
+								"value": "{{tokenID}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{apiEndpoint}}/users/profile",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						},
+						"description": "Fetch User Profile (GET) This is a negative scenerio where a user tries to fetch profile information like \\[email, name, id\\] after successful login using POST instead of GET."
+					},
+					"response": []
+				},
+				{
+					"name": "GET user profile correctly",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'profile successful'\", function () {\r",
+									"    const responseBody = pm.response.json()\r",
+									"    pm.expect(responseBody.message).to.eql(\"Profile successful\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data property have name same as name stored on variable\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    let name = pm.environment.get(\"name\")\r",
+									"    pm.expect(responseBody.data.name).to.eql(name)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data property have email same as email stored on variable\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    let emailID = pm.environment.get(\"email\")\r",
+									"    pm.expect(responseBody.data.email).to.eql(emailID)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"const schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"success\": {\r",
+									"      \"type\": \"boolean\"\r",
+									"    },\r",
+									"    \"status\": { \r",
+									"      \"type\": \"integer\"\r",
+									"    },\r",
+									"    \"message\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"data\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"id\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"name\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"email\": {\r",
+									"          \"type\": \"string\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"id\",\r",
+									"        \"name\",\r",
+									"        \"email\" \r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"success\",\r",
+									"    \"status\",\r",
+									"    \"message\",\r",
+									"    \"data\"\r",
+									"  ]\r",
+									"}\r",
+									"\r",
+									"// Schema Validation\r",
+									"pm.test(\"Scema Validation\", ()=> {\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "{{tokenType}}",
+								"value": "{{tokenID}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{apiEndpoint}}/users/profile",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						},
+						"description": "Fetch User Profile (GET) This is a positive scenerio where a user tries to fetch profile information like \\[email, name, id\\] after successful login."
+					},
+					"response": []
+				}
+			],
+			"description": "This is a scenerio where a user tries to fetch the profile information."
+		},
+		{
+			"name": "Update user profile",
+			"item": [
+				{
+					"name": "update user profile without mandatory field",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'Mandatory fields shouldn't be empty'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Mandatory fields shouldn't be empty\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"\",\r\n    \"phone\": \"{{contact}}\",\r\n    \"company\": \"{{company}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/profile",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						},
+						"description": "Update user profile (PATCH) This is a negative scenerio where a user tries to apply partial modifications to the profile but mandatory field is missing."
+					},
+					"response": []
+				},
+				{
+					"name": "update username below 3 character",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'User name must be between 4 and 30 characters'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"User name must be between 4 and 30 characters\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"PM\",\r\n    \"phone\": \"{{contact}}\",\r\n    \"company\": \"{{company}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/profile",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						},
+						"description": "Update user profile (PATCH) This is a negative scenerio where a user tries to update profile 'name' with 2 character, less than 4 which is required."
+					},
+					"response": []
+				},
+				{
+					"name": "update username above 30 character",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'User name must be between 4 and 30 characters'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"User name must be between 4 and 30 characters\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"This is user name that is above thirty character\",\r\n    \"phone\": \"{{contact}}\",\r\n    \"company\": \"{{company}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/profile",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						},
+						"description": "Update user profile (PATCH) This is a negative scenerio where a user tries to update profile 'name' with more than 30 characters."
+					},
+					"response": []
+				},
+				{
+					"name": "update user profile correctly",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'Profile updated successful'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Profile updated successful\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data property doesn't have old name\", function(){\r",
+									"    var responseBody = pm.response.json()\r",
+									"    let name = pm.environment.get(\"name\")\r",
+									"    pm.expect(responseBody.data).to.not.have.property(name);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Data property have updated new name same as name stored on variable\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    let name = pm.environment.get(\"name\")\r",
+									"    let updatedName = pm.environment.get(\"newName\")\r",
+									"    pm.expect(responseBody.data.name).to.eq(updatedName)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data property have phone same as phone stored on variable\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    let contact = pm.environment.get(\"contact\")\r",
+									"    pm.expect(responseBody.data.phone).to.eql(contact)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data property have company name same as name stored on variable\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    let company = pm.environment.get(\"company\")\r",
+									"    pm.expect(responseBody.data.company).to.eql(company)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"const schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"success\": {\r",
+									"      \"type\": \"boolean\"\r",
+									"    },\r",
+									"    \"status\": { \r",
+									"      \"type\": \"integer\"\r",
+									"    },\r",
+									"    \"message\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"data\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"id\": {\r",
+									"          \"type\": \"string\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"id\"\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"success\",\r",
+									"    \"status\",\r",
+									"    \"message\",\r",
+									"    \"data\"\r",
+									"  ]\r",
+									"}\r",
+									"\r",
+									"// Schema Validation\r",
+									"pm.test(\"Scema Validation\", ()=> {\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{newName}}\",\r\n    \"phone\": \"{{contact}}\",\r\n    \"company\": \"{{company}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/profile",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						},
+						"description": "Update user profile (PATCH) This is a positive scenerio where a user tries to apply partial modifications to the profile. In this case 'name' is mandatory whereas 'phone number' and 'company name' are optional."
+					},
+					"response": []
+				}
+			],
+			"description": "This is a scenerio where a user tries to update his/her profile."
+		},
+		{
+			"name": "GET user profile after updating",
+			"item": [
+				{
+					"name": "GET user profile after updating profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'profile successful'\", function () {\r",
+									"    const responseBody = pm.response.json()\r",
+									"    pm.expect(responseBody.message).to.eql(\"Profile successful\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data property doesn't have old name\", function(){\r",
+									"    var responseBody = pm.response.json()\r",
+									"    let name = pm.environment.get(\"name\")\r",
+									"    pm.expect(responseBody.data).to.not.have.property(name);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Data property have new name same as name stored on variable\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    let name = pm.environment.get(\"name\")\r",
+									"    let updatedName = pm.environment.get(\"newName\")\r",
+									"    pm.expect(responseBody.data.name).to.eq(updatedName)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "{{tokenType}}",
+								"value": "{{tokenID}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{apiEndpoint}}/users/profile",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						},
+						"description": "Fetch User Profile (GET) This is a positive scenerio where a user tries to fetch new profile information after updating it."
+					},
+					"response": []
+				}
+			],
+			"description": "This is a scenerio where a user tries to fetch the profile after updating his/her profile."
+		},
+		{
+			"name": "Forget Password",
+			"item": [
+				{
+					"name": "send reset password link on unregistered email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(401);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'No account found with the given email address'\", function () {\r",
+									"    const responseBody = pm.response.json()\r",
+									"    pm.expect(responseBody.message).to.eql(\"No account found with the given email address\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"invalidemailaddress@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/forgot-password",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"forgot-password"
+							]
+						},
+						"description": "Forget Password (POST): This is a negative scenerio where a user tries to send forget password link to an unregistered email to reset password."
+					},
+					"response": []
+				},
+				{
+					"name": "send reset password link on invalid email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'A valid email address is required'\", function () {\r",
+									"    const responseBody = pm.response.json()\r",
+									"    pm.expect(responseBody.message).to.eql(\"A valid email address is required\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"@GMEAIL.COM\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/forgot-password",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"forgot-password"
+							]
+						},
+						"description": "Forget Password (POST): This is a negative scenerio where a user tries to send forget password link to invalid email address."
+					},
+					"response": []
+				},
+				{
+					"name": "send reset password link on registered email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'Password reset link successfully sent to valid email\", function () {\r",
+									"    const responseBody = pm.response.json()\r",
+									"    let validEmailID = pm.environment.get(\"validEmail\")\r",
+									"    pm.expect(responseBody.message).to.eql(\"Password reset link successfully sent to \" + validEmailID + \". Please verify by clicking on the given link\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"{{validEmail}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/forgot-password",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"forgot-password"
+							]
+						},
+						"description": "Forget Password (POST): This is a positive scenerio where a user tries to send forget password link to an registered email to reset password."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Change password",
+			"item": [
+				{
+					"name": "change password with same current password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response message have 'The new password should be different from the current password'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"The new password should be different from the current password\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currentPassword\": \"{{password}}\",\r\n    \"newPassword\": \"{{password}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/change-password",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"change-password"
+							]
+						},
+						"description": "Change password (POST): This is a negative scenerio where a user tries to change the current password with same current password."
+					},
+					"response": []
+				},
+				{
+					"name": "change password i.e. below 6 characters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response message have 'New password must be between 6 and 30 characters'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"New password must be between 6 and 30 characters\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currentPassword\": \"{{password}}\",\r\n    \"newPassword\": \"Pr@be\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/change-password",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"change-password"
+							]
+						},
+						"description": "Change password (POST): This is a negative scenerio where a user tries to change the current password with password that is below 6 characters."
+					},
+					"response": []
+				},
+				{
+					"name": "change password i.e. above 30 characters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response message have 'New password must be between 6 and 30 characters'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"New password must be between 6 and 30 characters\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currentPassword\": \"{{password}}\",\r\n    \"newPassword\": \"This-Is-P@$$word-@bove-Thirty-Ch@r@cters\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/change-password",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"change-password"
+							]
+						},
+						"description": "Change password (POST): This is a negative scenerio where a user tries to change the current password with password that is above 30 characters."
+					},
+					"response": []
+				},
+				{
+					"name": "change password where old password is incorrect",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response message have 'The current password is incorrect'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"The current password is incorrect\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currentPassword\": \"IncorrectCurrentPassword\",\r\n    \"newPassword\": \"{{newPass}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/change-password",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"change-password"
+							]
+						},
+						"description": "Change password (POST): This is a neagtive scenerio where a user tries to change password but current password is incorrect."
+					},
+					"response": []
+				},
+				{
+					"name": "change password to weak one",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response message have 'Password is weak'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Password must contain 1 uppercase, 1 lowercase, 1 number, and 1 special character with more than 6 characters\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currentPassword\": \"{{password}}\",\r\n    \"newPassword\": \"Qwerty\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/change-password",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"change-password"
+							]
+						},
+						"description": "Change password (POST): This is a neagtive scenerio where a user tries to change the current password with weak password."
+					},
+					"response": []
+				},
+				{
+					"name": "change password to strong password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response message have 'The password was successfully updated'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"The password was successfully updated\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currentPassword\": \"Qwerty\",\r\n    \"newPassword\": \"{{newPass}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/change-password",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"change-password"
+							]
+						},
+						"description": "Change password (POST) This is a positive scenerio where a user tries to change the current password with storng password"
+					},
+					"response": []
+				}
+			],
+			"description": "This is a scenerio where a user tries to change current password."
+		},
+		{
+			"name": "Logout",
+			"item": [
+				{
+					"name": "logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response message have 'User has been successfully logged out'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"User has been successfully logged out\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{apiEndpoint}}/users/logout",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"logout"
+							]
+						},
+						"description": "Logout (DEL): This is a positive scenerio where a user tries to log out of current session."
+					},
+					"response": []
+				},
+				{
+					"name": "logout twice",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(401);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response message have 'Access token is not valid or has expired, you will need to login'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Access token is not valid or has expired, you will need to login\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{apiEndpoint}}/users/logout",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"logout"
+							]
+						},
+						"description": "Logout (DEL): This is a negative scenerio where a user tries to log out of current session again after successful logout."
+					},
+					"response": []
+				}
+			],
+			"description": "This is a scenerio where a user tries to logout of a current session."
+		},
+		{
+			"name": "Login with old password",
+			"item": [
+				{
+					"name": "login via. old password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(401);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'Incorrect email address or password'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Incorrect email address or password\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/login",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						},
+						"description": "Login with old password (POST) This is a negative scenerio where a user tries to log in with old password."
+					},
+					"response": []
+				}
+			],
+			"description": "This is a scenerio where a user tries to login with old password."
+		},
+		{
+			"name": "Login with new password",
+			"item": [
+				{
+					"name": "login via. new password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'login successful'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Login successful\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data property have 'token'\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"token\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Login have cookie\", function () {\r",
+									"    pm.expect(Object.keys(pm.cookies.toObject()).length).to.be.above(0);\r",
+									"});\r",
+									"\r",
+									"// store dynamic token value on environment variable with name 'tokenID'\r",
+									"const responseData = pm.response.json();\r",
+									"console.log(responseData.data.id)\r",
+									"pm.environment.set('token', responseData.data.token)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{newPass}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/login",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						},
+						"description": "Login with new password (POST) This is a positive scenerio where a user tries to log in with new password."
+					},
+					"response": []
+				}
+			],
+			"description": "This is a scenerio where a user tries to login with new password."
+		},
+		{
+			"name": "Create note",
+			"item": [
+				{
+					"name": "create note without auth token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(401);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'No authentication token specified in x-auth-token header'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"No authentication token specified in x-auth-token header\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"{{noteName}}\",\r\n    \"description\": \"{{noteDescription}}\",\r\n    \"category\": \"{{noteCategory}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/notes",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes"
+							]
+						},
+						"description": "Create note without auth (POST): This is a negative scenerio where a user tries to create note without authentication token."
+					},
+					"response": []
+				},
+				{
+					"name": "create note without mandatory fields",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Data property have message 'Mandatory fields cannot be left empty'\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Mandatory fields cannot be left empty\")\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"\",\r\n    \"description\": \"\",\r\n    \"category\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/notes",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes"
+							]
+						},
+						"description": "Create note without auth (POST): This is a negative scenerio where a user tries to create note without entering mandatory fields."
+					},
+					"response": []
+				},
+				{
+					"name": "create note with title below 4 characters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Data property have message 'Title must be between 4 and 100 characters'\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Title must be between 4 and 100 characters\")\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Abc\",\r\n    \"description\": \"{{noteDescription}}\",\r\n    \"category\": \"{{noteCategory}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/notes",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes"
+							]
+						},
+						"description": "Create note without auth (POST): This is a negative scenerio where a user tries to create note with 'note title' that is below 4 characters."
+					},
+					"response": []
+				},
+				{
+					"name": "create note with title i.e. above 100 character",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Data property have message 'Title must be between 4 and 100 characters'\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Title must be between 4 and 100 characters\")\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"This is a note with title that is above hundred characters to check whether it will create note for us or not.\",\r\n    \"description\": \"{{noteDescription}}\",\r\n    \"category\": \"{{noteCategory}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/notes",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes"
+							]
+						},
+						"description": "Create note without auth (POST): This is a negative scenerio where a user tries to create note with 'note title' that is below above 100 characters."
+					},
+					"response": []
+				},
+				{
+					"name": "create note with invalid auth token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(401);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response message have 'Access token is not valid or has expired, you will need to login'\", function () {\r",
+									"    var responseData = pm.response.json();\r",
+									"    pm.expect(responseData.message).to.eql(\"Access token is not valid or has expired, you will need to login\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "1HG788Hg6H7B6",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "{{tokenType}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"{{noteName}}\",\r\n    \"description\": \"{{noteDescription}}\",\r\n    \"category\": \"{{noteCategory}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/notes",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes"
+							]
+						},
+						"description": "Create note with auth (POST): This is a negative scenerio where a user tries to create note with invalid auth token."
+					},
+					"response": []
+				},
+				{
+					"name": "create multiple note with auth at once in list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'API does not support the creation of multiple notes in a single request'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"API does not support the creation of multiple notes in a single request. Please create each note individually\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"title\": \"{{noteNameNepali}}\",\r\n        \"description\": \"{{noteDescriptionNepali}}\",\r\n        \"category\": \"{{noteCategory}}\"\r\n    }, \r\n    {\r\n        \"title\": \"{{noteName}}\",\r\n        \"description\": \"{{noteDescription}}\",\r\n        \"category\": \"{{noteCategory}}\"\r\n    }\r\n]\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/notes",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes"
+							]
+						},
+						"description": "Create note with auth (POST): This is a negative scenerio where a user tries to create multiple notes at once."
+					},
+					"response": []
+				},
+				{
+					"name": "create note with auth with different language",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have note title same as title stored on variable\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    let noteTitle = pm.environment.get(\"noteNameNepali\")\r",
+									"    pm.expect(responseBody.data.title).to.eql(noteTitle)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body have note description same as description stored on variable\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    let noteDescription = pm.environment.get(\"noteDescriptionNepali\")\r",
+									"    pm.expect(responseBody.data.description).to.eql(noteDescription)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body have note category same as category stored on variable\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    let noteCategory = pm.environment.get(\"noteCategory\")\r",
+									"    pm.expect(responseBody.data.category).to.eql(noteCategory)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"// Store id from response as note_id variable\r",
+									"const responseData = pm.response.json();\r",
+									"console.log(responseData.data.id)\r",
+									"pm.environment.set('noteID', responseData.data.id)\r",
+									"console.log(responseData.data.id)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"{{noteNameNepali}}\",\r\n    \"description\": \"{{noteDescriptionNepali}}\",\r\n    \"category\": \"{{noteCategory}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/notes",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes"
+							]
+						},
+						"description": "Create note with auth (POST): This is a positive scenerio where a user tries to create note with different language beside english with proper authentication and requirements"
+					},
+					"response": []
+				},
+				{
+					"name": "create note with auth with English language",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have note title same as title stored on variable\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    let noteTitle = pm.environment.get(\"noteName\")\r",
+									"    pm.expect(responseBody.data.title).to.eql(noteTitle)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body have note description same as description stored on variable\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    let noteDescription = pm.environment.get(\"noteDescription\")\r",
+									"    pm.expect(responseBody.data.description).to.eql(noteDescription)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body have note category same as category stored on variable\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    let noteCategory = pm.environment.get(\"noteCategory\")\r",
+									"    pm.expect(responseBody.data.category).to.eql(noteCategory)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});\r",
+									"\r",
+									"// Store id from response as note_id variable\r",
+									"const responseData = pm.response.json();\r",
+									"console.log(responseData.data.id)\r",
+									"pm.environment.set('noteID', responseData.data.id)\r",
+									"console.log(responseData.data.id)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"{{noteName}}\",\r\n    \"description\": \"{{noteDescription}}\",\r\n    \"category\": \"{{noteCategory}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/notes",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes"
+							]
+						},
+						"description": "Create note with auth (POST): This is a positive scenerio where a user tries to create note with english language with proper authentication and requirements"
+					},
+					"response": []
+				}
+			],
+			"description": "This is a scenerio where a user tries to create a note on the server."
+		},
+		{
+			"name": "GET all notes",
+			"item": [
+				{
+					"name": "GET all notes without auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(401);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'No authentication token specified in x-auth-token header'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"No authentication token specified in x-auth-token header\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{apiEndpoint}}/notes",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes"
+							]
+						},
+						"description": "Fetch all notes without auth (GET): This is a negative scenerio where a user tries to fetch all the notes that was created without authetication."
+					},
+					"response": []
+				},
+				{
+					"name": "GET all notes with auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Data property have 'title'\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"title\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{apiEndpoint}}/notes",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes"
+							]
+						},
+						"description": "Fetch all notes with auth (GET): This is a positive scenerio where a user tries to fetch all the notes that was created with proper authetication."
+					},
+					"response": []
+				}
+			],
+			"description": "This is a scenerio where a user tries to fetch all the notes from the server."
+		},
+		{
+			"name": "GET note by id",
+			"item": [
+				{
+					"name": "GET note by id without auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(401);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'No authentication token specified in x-auth-token header'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"No authentication token specified in x-auth-token header\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{apiEndpoint}}/notes/:id",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{noteID}}"
+								}
+							]
+						},
+						"description": "Fetch note by id without auth (GET): This is a negative scenerio where a user tries to get note by id without authentication. Here i set 'note id' as Path Variables instead of passing it directly on URL."
+					},
+					"response": []
+				},
+				{
+					"name": "GET note by invalid id with auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'Note ID must be a valid ID'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Note ID must be a valid ID\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{apiEndpoint}}/notes/:id",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "$#"
+								}
+							]
+						},
+						"description": "Fetch note by id with incorrect auth (GET): This is a negative scenerio where a user tries to get note by id by passing correct note id with invalid authentication key."
+					},
+					"response": []
+				},
+				{
+					"name": "GET note by id with auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Data property have 'note id'\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data property have 'title'\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"title\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data property have 'description'\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"description\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data property have 'category'\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"category\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{apiEndpoint}}/notes/:id",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{noteID}}"
+								}
+							]
+						},
+						"description": "Fetch note by with auth and correct note id (GET) This is a positive scenerio where a user tries to get note by id with proper authentication and with correct note id."
+					},
+					"response": []
+				}
+			],
+			"description": "This is a scenerio where a user tries to fetch the specific note by id."
+		},
+		{
+			"name": "Update note by id",
+			"item": [
+				{
+					"name": "update note by id without auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(401);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have message 'No authentication token specified in x-auth-token headerl'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"No authentication token specified in x-auth-token header\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"{{noteID}}\",\r\n    \"title\": \"{{noteName1}}\",\r\n    \"description\": \"{{noteDescription1}}\",\r\n    \"category\": \"Work\",\r\n    \"completed\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/notes/:id",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{noteID}}"
+								}
+							]
+						},
+						"description": "Update entire note by id (PUT): This is a negative scenerio where a user tries to replace the entire resource with the new data without proper authentication."
+					},
+					"response": []
+				},
+				{
+					"name": "update note by id with empty payload body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have message 'Mandatory fields shouldn't be empty'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Mandatory fields shouldn't be empty\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"\",\r\n    \"title\": \"\",\r\n    \"description\": \"\",\r\n    \"completed\": \"\",\r\n    \"category\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/notes/:id",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{noteID}}"
+								}
+							]
+						},
+						"description": "Update entire note by id (PUT): This is a negative scenerio where a user tries to replace the entire resource with empty payload body."
+					},
+					"response": []
+				},
+				{
+					"name": "update note by id with incorrect id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have message 'Note ID must be a valid ID'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Note ID must be a valid ID\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"{{noteName1}}\",\r\n    \"description\": \"{{noteDescription1}}\",\r\n    \"category\": \"Work\",\r\n    \"completed\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/notes/:id",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "123"
+								}
+							]
+						},
+						"description": "Update entire note by id (PUT): This is a negative scenerio where a user tries to replace the entire resource with the new data with proper authentication but incorrect note id."
+					},
+					"response": []
+				},
+				{
+					"name": "update note by id with auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have note title same as title stored on variable\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    let noteTitle1 = pm.environment.get(\"noteName1\")\r",
+									"    pm.expect(responseBody.data.title).to.eql(noteTitle1)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body have note description same as description stored on variable\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    let noteDescription1 = pm.environment.get(\"noteDescription1\")\r",
+									"    pm.expect(responseBody.data.description).to.eql(noteDescription1)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data property have category 'Work'\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.data.category).to.eql(\"Work\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data property have completed status 'true'\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.data.completed).to.eql(true)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"{{noteName1}}\",\r\n    \"description\": \"{{noteDescription1}}\",\r\n    \"category\": \"Work\",\r\n    \"completed\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/notes/:id",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{noteID}}"
+								}
+							]
+						},
+						"description": "Update entire note by id (PUT) This is a positive scenerio where a user tries to replace the entire resource with the new data.\n\nHere i changed note title, description, category and completed status."
+					},
+					"response": []
+				}
+			],
+			"description": "This is a scenerio where a user tries to update the specifc note by id."
+		},
+		{
+			"name": "GET note by id after updating note",
+			"item": [
+				{
+					"name": "GET note by id with auth after update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Data property must exist and must not be empty\", function(){\r",
+									"    const responseData = pm.response.json();\r",
+									"    pm.expect(responseData.data).to.exist.and.not.to.be.empty;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Data property have category 'Work'\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.data.category).to.eql(\"Work\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data property have completed status 'true'\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.data.completed).to.eql(true)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body have title 'Tokyo Ghoul'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.data.title).to.eql(\"Tokyo Ghoul\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{apiEndpoint}}/notes/:id",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{noteID}}"
+								}
+							]
+						},
+						"description": "Fetch note by with auth and correct note id (GET) This is a positive scenerio where a user tries to get note by id with proper authentication and with correct note id after updating the note."
+					},
+					"response": []
+				}
+			],
+			"description": "This is a scenerio where a user tries to fetch note by id after note is being updated."
+		},
+		{
+			"name": "Update completed status of note by id",
+			"item": [
+				{
+					"name": "update completed status of note by id without auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(401);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have message 'No authentication token specified in x-auth-token header'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"No authentication token specified in x-auth-token header\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"{{noteID}}\",\r\n    \"completed\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/notes/:id",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{noteID}}"
+								}
+							]
+						},
+						"description": "Update 'Complete' status of note by id (PATCH): This is a negative scenerio where a user tries to apply partial modifications to the resource without proper authenticatiion."
+					},
+					"response": []
+				},
+				{
+					"name": "update completed status of note by id with invalid status value",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have message 'Note completed status must be boolean'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Note completed status must be boolean\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"completed\": \"notsure\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/notes/:id",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{noteID}}"
+								}
+							]
+						},
+						"description": "Update 'Complete' status of note by id (PATCH): This is a negative scenerio where a user tries to apply partial modifications to the resource with invalid authenticatiion token."
+					},
+					"response": []
+				},
+				{
+					"name": "update completed status of note by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Data property have completed status 'true'\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.data.completed).to.eql(true)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"completed\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/notes/:id",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{noteID}}"
+								}
+							]
+						},
+						"description": "Update 'Complete' status of note by id (PATCH): This is a positive scenerio where a user tries to apply partial modifications to the resource with proper authenticatiion.\n\nHere i updated 'complete' status from false to true."
+					},
+					"response": []
+				}
+			],
+			"description": "This is a scenerio where a user tries to modify 'completed' status from the note by id.\n\nIt can either be 'true' or 'false'"
+		},
+		{
+			"name": "Verify completed status of note by id after update",
+			"item": [
+				{
+					"name": "Verify completed status of note by id after update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Data property have completed status 'true'\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.data.completed).to.eql(true)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{apiEndpoint}}/notes/:id",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{noteID}}"
+								}
+							]
+						},
+						"description": "Fetch note by with auth and correct note id (GET) This is a positive scenerio where a user tries to get note by id with proper authentication and with correct note id."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete note by id",
+			"item": [
+				{
+					"name": "delete note by id that doesn't exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status is 404\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(404);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response message have 'No note was found with the provided ID, Maybe it was deleted'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"No note was found with the provided ID, Maybe it was deleted\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{apiEndpoint}}/notes/:id",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "56c774cbc99d1a014d4b1983"
+								}
+							]
+						},
+						"description": "Delete note by id (DEL): This is a negative scenerio where a user tries to delete the note by id which doesn't exist with proper authentication."
+					},
+					"response": []
+				},
+				{
+					"name": "delete note by id without auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status is 401\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(401);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response message have 'No authentication token specified in x-auth-token header'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"No authentication token specified in x-auth-token header\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{apiEndpoint}}/notes/:id",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{noteID}}"
+								}
+							]
+						},
+						"description": "Delete note by id (DEL): This is a negative scenerio where a user tries to delete the note without proper authentication token but correct note id."
+					},
+					"response": []
+				},
+				{
+					"name": "delete note by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status is 200\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response message have 'Note successfully deleted'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Note successfully deleted\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{apiEndpoint}}/notes/:id",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{noteID}}"
+								}
+							]
+						},
+						"description": "Delete note by id (DEL): This is a positive scenerio where a user tries to delete the note with proper authentication."
+					},
+					"response": []
+				},
+				{
+					"name": "delete note by id that was already deleted",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status is 404\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(404);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response message have 'No note was found with the provided ID, Maybe it was deleted'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"No note was found with the provided ID, Maybe it was deleted\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{apiEndpoint}}/notes/:id",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{noteID}}"
+								}
+							]
+						},
+						"description": "Delete note by id (DEL): This is a negative scenerio where a user tries to delete the note with proper authentication after deleting the note."
+					},
+					"response": []
+				}
+			],
+			"description": "This is a scenerio where a user tries to delete the note by id."
+		},
+		{
+			"name": "GET note by id after deleting note",
+			"item": [
+				{
+					"name": "GET note by id with auth after deleting note",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(404);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'No note was found with the provided ID, Maybe it was deleted'\", function () {\r",
+									"    const responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"No note was found with the provided ID, Maybe it was deleted\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{apiEndpoint}}/notes/:id",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{noteID}}"
+								}
+							]
+						},
+						"description": "Fetch note by with auth and correct note id (GET): This is a positive scenerio where a user tries to get note by id with proper authentication and with correct note id after deleting note."
+					},
+					"response": []
+				}
+			],
+			"description": "This is a scenerio where a user tries to fetch the note by id after deleting it."
+		},
+		{
+			"name": "Delete account",
+			"item": [
+				{
+					"name": "delete account without auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(401);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response message have 'No authentication token specified in x-auth-token header'\", function () {\r",
+									"    var responseData = pm.response.json();\r",
+									"    pm.expect(responseData.message).to.eql(\"No authentication token specified in x-auth-token header\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{apiEndpoint}}/users/delete-account",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"delete-account"
+							]
+						},
+						"description": "Delete account (DEL): This is a negative scenerio where a user tries to delete the account permanently without proper authentication."
+					},
+					"response": []
+				},
+				{
+					"name": "delete account with invalid auth token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(401);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response message have 'Access token is not valid or has expired, you will need to login'\", function () {\r",
+									"    var responseData = pm.response.json();\r",
+									"    pm.expect(responseData.message).to.eql(\"Access token is not valid or has expired, you will need to login\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "1HG788Hg6H7B6",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "{{tokenType}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{apiEndpoint}}/users/delete-account",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"delete-account"
+							]
+						},
+						"description": "Delete account (DEL): This is a negative scenerio where a user tries to delete the account permanently with incorrect authentication token."
+					},
+					"response": []
+				},
+				{
+					"name": "delete account with auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response message have 'Account successfully deleted'\", function () {\r",
+									"    var responseData = pm.response.json();\r",
+									"    pm.expect(responseData.message).to.eql(\"Account successfully deleted\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{apiEndpoint}}/users/delete-account",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"delete-account"
+							]
+						},
+						"description": "Delete account (DEL) This is a positive scenerio where a user tries to delete the account permanently with proper authentication."
+					},
+					"response": []
+				}
+			],
+			"description": "This is a scenerio where a user tries to delete the account permanently."
+		},
+		{
+			"name": "Login after account delete",
+			"item": [
+				{
+					"name": "Login after account delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(401);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"})\r",
+									"\r",
+									"pm.test('Response body is in JSON', function(){\r",
+									"    pm.response.to.be.json;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'Incorrect email address or password'\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.message).to.eql(\"Incorrect email address or password\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{newPass}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/login",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						},
+						"description": "Login with new password (POST) This is a positive scenerio where a user tries to log in with new password."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{token}}",
+				"type": "string"
+			},
+			{
+				"key": "in",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "{{tokenType}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
