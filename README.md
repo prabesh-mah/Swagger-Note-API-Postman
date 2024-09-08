@@ -54,5 +54,5 @@ newman run "Swagger Note API.postman_collection.json" -e "QA-Environment.postman
 <img src="screenshot\newman-result.png" alt="Newman Report" style="max-width:100%;">
 
 ## Execution Video
-This is the Postman Collection runner report executed via. `newman-html-reporter`. 
+This is the Postman Collection runner video via. `postman-app`. 
 [Here](https://drive.proton.me/urls/R493V6VSBC#SG9USArqfsGc)
