@@ -22,7 +22,7 @@
         </collectionProp>
       </HeaderManager>
       <hashTree/>
-      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="API Endpoint">
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="API Endpoint" enabled="true">
         <collectionProp name="Arguments.arguments">
           <elementProp name="api_endpoint" elementType="Argument">
             <stringProp name="Argument.name">api_endpoint</stringProp>
@@ -32,7 +32,7 @@
         </collectionProp>
       </Arguments>
       <hashTree/>
-      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Test Data">
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Test Data" enabled="true">
         <collectionProp name="Arguments.arguments">
           <elementProp name="full_name" elementType="Argument">
             <stringProp name="Argument.name">full_name</stringProp>
@@ -41,7 +41,7 @@
           </elementProp>
           <elementProp name="email" elementType="Argument">
             <stringProp name="Argument.name">email</stringProp>
-            <stringProp name="Argument.value">jmeter_test_email@mailto.plus</stringProp>
+            <stringProp name="Argument.value">${email}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc"></stringProp>
           </elementProp>
@@ -108,7 +108,8 @@
         </collectionProp>
       </Arguments>
       <hashTree/>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Swagger Note API">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Swagger Note API" enabled="true">
+        <stringProp name="TestPlan.comments">This project involves Load tetsing on Swagger Note API. </stringProp>
         <intProp name="ThreadGroup.num_threads">1</intProp>
         <intProp name="ThreadGroup.ramp_time">1</intProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
@@ -121,7 +122,7 @@
       <hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Check Health" enabled="true"/>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Check Health">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Check Health" enabled="true">
             <stringProp name="TestPlan.comments">This endpoint sends GET request to checks whether the API is running and up or not</stringProp>
             <stringProp name="HTTPSampler.domain">${api_endpoint}</stringProp>
             <stringProp name="HTTPSampler.protocol">https</stringProp>
@@ -145,7 +146,7 @@
               <intProp name="Assertion.test_type">1</intProp>
             </ResponseAssertion>
             <hashTree/>
-            <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="response size validation">
+            <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="response size validation" enabled="true">
               <stringProp name="Assertion.test_field">SizeAssertion.response_network_size</stringProp>
               <stringProp name="SizeAssertion.size">1000</stringProp>
               <intProp name="SizeAssertion.operator">4</intProp>
@@ -164,13 +165,12 @@
           </hashTree>
           <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
             <stringProp name="ConstantTimer.delay">5000</stringProp>
-            <stringProp name="TestPlan.comments">It will wait for 5 seconds to simulate actual Human behaviour</stringProp>
           </ConstantTimer>
           <hashTree/>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Register User" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Register User"/>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Register User">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Register User" enabled="true">
             <stringProp name="TestPlan.comments">This endpoint sends POST request with payload body in JSON format to create a user</stringProp>
             <stringProp name="HTTPSampler.domain">${api_endpoint}</stringProp>
             <stringProp name="HTTPSampler.protocol">https</stringProp>
@@ -185,7 +185,7 @@
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
                   <stringProp name="Argument.value">{&#xd;
     &quot;name&quot;: &quot;${full_name}&quot;,&#xd;
-    &quot;email&quot;: &quot;${email}&quot;,&#xd;
+    &quot;email&quot;: &quot;${__RandomString(10,abcdefghijklmnopqrstuvwxyz)}${__Random(1000,9999)}@outlook.com&quot;,&#xd;
     &quot;password&quot;: &quot;${password}&quot;&#xd;
 }</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
@@ -194,7 +194,16 @@
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="status code validation">
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="extract email from response">
+              <stringProp name="JSONPostProcessor.referenceNames">email</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.email</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">$token_not_found</stringProp>
+              <stringProp name="Sample.scope">all</stringProp>
+              <stringProp name="TestPlan.comments">After hitting register endpoint it will extract &apos;email&apos; from response body and save it on variable name &apos;email&apos; for further validation </stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="status code validation" enabled="true">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="49587">201</stringProp>
               </collectionProp>
@@ -204,7 +213,7 @@
               <intProp name="Assertion.test_type">1</intProp>
             </ResponseAssertion>
             <hashTree/>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="response body message validation">
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="response body message validation" enabled="true">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="-283504980">&quot;name&quot;:&quot;${full_name}&quot;</stringProp>
                 <stringProp name="-583445158">&quot;email&quot;:&quot;${email}&quot;</stringProp>
@@ -217,14 +226,19 @@
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
-          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
-            <stringProp name="ConstantTimer.delay">30000</stringProp>
-            <stringProp name="TestPlan.comments">It will wait for 30 seconds as it takes minimum of 30 sec to register the user by providing necessary payload body</stringProp>
+          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer">
+            <stringProp name="ConstantTimer.delay">5000</stringProp>
           </ConstantTimer>
           <hashTree/>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Login User" enabled="true"/>
         <hashTree>
+          <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="true">
+            <boolProp name="displayJMeterProperties">false</boolProp>
+            <boolProp name="displayJMeterVariables">true</boolProp>
+            <boolProp name="displaySystemProperties">false</boolProp>
+          </DebugSampler>
+          <hashTree/>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Login User" enabled="true">
             <stringProp name="TestPlan.comments">This endpoint sends POST request with payload body in JSON format to login after successful register</stringProp>
             <stringProp name="HTTPSampler.domain">${api_endpoint}</stringProp>
@@ -248,7 +262,7 @@
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="extract token from response">
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="extract token from response" enabled="true">
               <stringProp name="JSONPostProcessor.referenceNames">token</stringProp>
               <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.token</stringProp>
               <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
@@ -267,7 +281,7 @@
               <intProp name="Assertion.test_type">1</intProp>
             </ResponseAssertion>
             <hashTree/>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="response body message validation">
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="response body message validation" enabled="true">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="-283504980">&quot;name&quot;:&quot;${full_name}&quot;</stringProp>
                 <stringProp name="-583445158">&quot;email&quot;:&quot;${email}&quot;</stringProp>
@@ -281,14 +295,19 @@
             <hashTree/>
           </hashTree>
           <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
-            <stringProp name="ConstantTimer.delay">20000</stringProp>
-            <stringProp name="TestPlan.comments">It will wait for 20 sec to simulate human behaviour while login</stringProp>
+            <stringProp name="ConstantTimer.delay">5000</stringProp>
           </ConstantTimer>
           <hashTree/>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Fetch User Profile" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="GET User Profile" enabled="true"/>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Fetch User Profile" enabled="true">
+          <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="true">
+            <boolProp name="displayJMeterProperties">false</boolProp>
+            <boolProp name="displayJMeterVariables">true</boolProp>
+            <boolProp name="displaySystemProperties">false</boolProp>
+          </DebugSampler>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET User Profile" enabled="true">
             <stringProp name="TestPlan.comments">This endpoint sends GET request to fetch the user profile after successful login</stringProp>
             <stringProp name="HTTPSampler.domain">${api_endpoint}</stringProp>
             <stringProp name="HTTPSampler.protocol">https</stringProp>
@@ -327,7 +346,6 @@
           </hashTree>
           <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
             <stringProp name="ConstantTimer.delay">5000</stringProp>
-            <stringProp name="TestPlan.comments">It will wait for 5sec to simulate human behaviour while fetching the user profile</stringProp>
           </ConstantTimer>
           <hashTree/>
         </hashTree>
@@ -377,13 +395,18 @@
             <hashTree/>
           </hashTree>
           <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
-            <stringProp name="ConstantTimer.delay">11000</stringProp>
-            <stringProp name="TestPlan.comments">It will wait for 11 sec to simulate human behaviour while reseting the password</stringProp>
+            <stringProp name="ConstantTimer.delay">5000</stringProp>
           </ConstantTimer>
           <hashTree/>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Note" enabled="true"/>
         <hashTree>
+          <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="true">
+            <boolProp name="displayJMeterProperties">false</boolProp>
+            <boolProp name="displayJMeterVariables">true</boolProp>
+            <boolProp name="displaySystemProperties">false</boolProp>
+          </DebugSampler>
+          <hashTree/>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create Note" enabled="true">
             <stringProp name="TestPlan.comments">This endpoint sends POST request with payload body in JSON format to create a note </stringProp>
             <stringProp name="HTTPSampler.domain">${api_endpoint}</stringProp>
@@ -448,14 +471,13 @@
             <hashTree/>
           </hashTree>
           <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
-            <stringProp name="ConstantTimer.delay">50000</stringProp>
-            <stringProp name="TestPlan.comments">It will wait for 50 seconds as it takes minimum of 50 sec to create a note by providing necessary payload body</stringProp>
+            <stringProp name="ConstantTimer.delay">5000</stringProp>
           </ConstantTimer>
           <hashTree/>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Get All Notes"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Get All Notes" enabled="true"/>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Fetch Get All Notes">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get All Notes" enabled="true">
             <stringProp name="TestPlan.comments">This endpoint sends GET request to fetch all the notes after creating the notes</stringProp>
             <stringProp name="HTTPSampler.domain">${api_endpoint}</stringProp>
             <stringProp name="HTTPSampler.protocol">https</stringProp>
@@ -507,7 +529,7 @@
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Get Note by ID" enabled="true"/>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Fetch Note by ID">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET Note by ID" enabled="true">
             <stringProp name="HTTPSampler.domain">${api_endpoint}</stringProp>
             <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.path">/notes/api/notes/${note_id_1}</stringProp>
@@ -552,6 +574,12 @@
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Note By ID" enabled="true"/>
         <hashTree>
+          <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="true">
+            <boolProp name="displayJMeterProperties">false</boolProp>
+            <boolProp name="displayJMeterVariables">true</boolProp>
+            <boolProp name="displaySystemProperties">false</boolProp>
+          </DebugSampler>
+          <hashTree/>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Update Note By ID" enabled="true">
             <stringProp name="HTTPSampler.domain">${api_endpoint}</stringProp>
             <stringProp name="HTTPSampler.protocol">https</stringProp>
@@ -610,13 +638,13 @@
             <hashTree/>
           </hashTree>
           <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
-            <stringProp name="ConstantTimer.delay">50000</stringProp>
+            <stringProp name="ConstantTimer.delay">5000</stringProp>
           </ConstantTimer>
           <hashTree/>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Get Note by ID After Update" enabled="true"/>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Fetch Note by ID After Update" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET Note by ID After Update" enabled="true">
             <stringProp name="HTTPSampler.domain">${api_endpoint}</stringProp>
             <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.path">/notes/api/notes/${note_id_1}</stringProp>
@@ -661,6 +689,12 @@
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Partial Modification" enabled="true"/>
         <hashTree>
+          <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="true">
+            <boolProp name="displayJMeterProperties">false</boolProp>
+            <boolProp name="displayJMeterVariables">true</boolProp>
+            <boolProp name="displaySystemProperties">false</boolProp>
+          </DebugSampler>
+          <hashTree/>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Partial Modification" enabled="true">
             <stringProp name="TestPlan.comments">Update &apos;completed&apos; status of note only</stringProp>
             <stringProp name="HTTPSampler.domain">${api_endpoint}</stringProp>
@@ -683,7 +717,7 @@
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="extract note_id from response">
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="extract note_id from response" enabled="true">
               <stringProp name="JSONPostProcessor.referenceNames">note_id_1</stringProp>
               <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.id</stringProp>
               <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
@@ -717,7 +751,7 @@
             <hashTree/>
           </hashTree>
           <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
-            <stringProp name="ConstantTimer.delay">10000</stringProp>
+            <stringProp name="ConstantTimer.delay">5000</stringProp>
           </ConstantTimer>
           <hashTree/>
         </hashTree>
@@ -766,7 +800,7 @@
           </ConstantTimer>
           <hashTree/>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Note By ID" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Note By ID"/>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Delete Note By ID" enabled="true">
             <stringProp name="HTTPSampler.domain">${api_endpoint}</stringProp>
@@ -802,8 +836,8 @@
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
-          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
-            <stringProp name="ConstantTimer.delay">7000</stringProp>
+          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer">
+            <stringProp name="ConstantTimer.delay">5000</stringProp>
           </ConstantTimer>
           <hashTree/>
         </hashTree>
@@ -885,12 +919,12 @@
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
-          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer">
             <stringProp name="ConstantTimer.delay">5000</stringProp>
           </ConstantTimer>
           <hashTree/>
         </hashTree>
-        <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="Assertion Results">
+        <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="Assertion Results" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -927,7 +961,7 @@
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
-        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report">
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -964,7 +998,7 @@
           <stringProp name="filename">D:\Document\GitHub\Swagger Note API (JMeter)\report\table-report.csv</stringProp>
         </ResultCollector>
         <hashTree/>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
