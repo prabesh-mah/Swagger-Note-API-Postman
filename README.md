@@ -69,8 +69,9 @@ A constant time delay has also been added to each request to simulate human inte
 Assertions were implemented to validate both the status codes and response bodies, confirming that the API operates as expected under load. Finally, reports were generated to analyze test results, including assertion outcomes. This comprehensive approach ensures effective performance evaluation of the Swagger Note API.
 
 ## Note
-As the API does not send an email for the forgot password endpoint, I generated and used a random email instead of a real one for load testing
+Although the email address is valid, the API does not send a password reset link, so I used a random email.
 
+## Run via. Command Line
 
 ```
 jmeter -n -t jmeter-load-test/swagger-note-api-load-test.jmx -l 'jmeter-load-test/result/result.csv'
@@ -85,5 +86,5 @@ where,
 <img src="screenshot\jmeter-sample.png" alt="JMeter File" style="max-width:100%;">
 
 ## Execution Video
-As of now, the execution video simulates only one user to reduce recording time.
+For demonstration purposes, the execution video currently simulates only one user to reduce recording time. The execution video for simulating multiple users will soon be uploaded along with the report file. 
 [Video](https://drive.proton.me/urls/5WNX9TF054#DCY66Jnf41Jv)
