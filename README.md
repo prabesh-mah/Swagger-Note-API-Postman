@@ -57,7 +57,7 @@ Report will be generated in `.html` format so open it via. any prefered browser 
 
 ## Execution Video
 This is the Postman Collection runner video via. `postman-app`. 
-[Video](https://drive.proton.me/urls/R493V6VSBC#SG9USArqfsGc)
+[Video](https://drive.proton.me/urls/RV5X07MA9W#J9Fcd6fLDmkB)
 
 # Load Testing using JMeter
 This GitHub summary provides an overview of the load testing implementation on the Swagger Note API using `JMeter` v5.6.3. The API endpoint and payload data were stored in user-defined variables for easy access and modification. Request headers, including `Content-Type and Authorization`, were managed through the `HTTP Header Manager`.
@@ -68,10 +68,13 @@ A constant time delay has also been added to each request to simulate human inte
 
 Assertions were implemented to validate both the status codes and response bodies, confirming that the API operates as expected under load. Finally, reports were generated to analyze test results, including assertion outcomes. This comprehensive approach ensures effective performance evaluation of the Swagger Note API.
 
+## Note
+As the API does not send an email for the forgot password endpoint, I generated and used a random email instead of a real one for load testing
 
-'''
-jmeter -n -t swagger-note-api-jemeter.jmx -l 'load-test/'
-'''
+
+```
+jmeter -n -t jmeter-load-test/swagger-note-api-load-test.jmx -l 'jmeter-load-test/result/result.csv'
+```
 
 where,
 - -n specifies that JMeter should run in non-GUI mode.
@@ -82,5 +85,5 @@ where,
 <img src="screenshot\jmeter-sample.png" alt="JMeter File" style="max-width:100%;">
 
 ## Execution Video
-This is the Load Teting video via. `JMeter`. 
-[Video](https://drive.proton.me/urls/R493V6VSBC#SG9USArqfsGc)
+As of now, the execution video simulates only one user to reduce recording time.
+[Video](https://drive.proton.me/urls/5WNX9TF054#DCY66Jnf41Jv)
