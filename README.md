@@ -80,8 +80,7 @@ jmeter -n -t jmeter-load-test/swagger-note-api-load-test.jmx -l 'jmeter-load-tes
 where,
 - -n specifies that JMeter should run in non-GUI mode.
 - -t is followed by the path to your .jmx file, which contains the test plan.
-- -l specifies the location where the results will be logged, typically in a .jtl file format.
-
+- -l specifies the location where the results will be logged.
 
 <img src="screenshot\jmeter-sample.png" alt="JMeter File" style="max-width:100%;">
 
