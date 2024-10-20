@@ -16,6 +16,7 @@ This project involves REST API testing on [Swagger Note API](https://practice.ex
 - All API requests are organized under `collection` folder properly so that they can be executed using a Postman's "Run collection" feature without the need to manually run each API one by one.
 - Validate response data through different types of assertions, such as `response code, response time, response header, JSON schema validation and more`.
 - Handle dynamic elements like the `token key`, which changes every time during a new login, by storing the captured token in an `environment variable` each time a new token is generated and updating it with the last one.
+- Implemented the concept of `API chaining`, where the output of one request serves as the input for the next, specifically between the register and login requests, as well as between creating a note and retrieving a note by ID.
 - Identified `11 medium and 3 critical bugs`.
 - Generate HTML report using `Newman Report Generator`. The report is generated in the `newman` folder.
 
@@ -53,7 +54,7 @@ newman run "Swagger Note API.postman_collection.json" -e "QA-Environment.postman
 ```
 <img src="screenshot\newman-result.png" alt="Newman Report" style="max-width:100%;">
 
-Report will be generated in `.html` format so open it via. any prefered browser to see the detailed report. The detailed description is also included with the `Postman documentation`, ensuring that each request comes with an explanation that makes it easy to understand what is happening with each request.
+Report will be generated in `.html` format so open it via. any prefered browser to see the detailed report. The detailed description is also included within the `Postman documentation`, ensuring that each request comes with an explanation that makes it easy to understand what is happening with each request.
 
 ## Execution Video
 This is the Postman Collection runner video via. `postman-app`. 
