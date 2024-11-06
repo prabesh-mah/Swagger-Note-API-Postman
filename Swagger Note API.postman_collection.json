@@ -113,7 +113,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"raw": "{\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -173,7 +173,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"raw": "{\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -312,7 +312,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"This is password above thirty characters\"\r\n}",
+							"raw": "{\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"This is p@ssword @bove thirty (30) char@cters\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -382,7 +382,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"email\": \"123@@gmail@com\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"raw": "{\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"email\": \"123@@zmail@@com\",\r\n    \"password\": \"{{password}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -470,7 +470,7 @@
 								"register"
 							]
 						},
-						"description": "Register (POST): This is a negative scenerio where a user tries to register account with empty email field which is madatory."
+						"description": "Register (POST): This is a negative scenerio where a user tries to register account with email that doesn't exist"
 					},
 					"response": []
 				},
@@ -522,7 +522,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"\",\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"raw": "{\r\n    \"name\": \"\",\r\n    \"email\": \"{{validEmail}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -660,7 +660,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"\"\r\n}",
+							"raw": "{\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"email\": \"{{validEmail}}\",\r\n    \"password\": \"\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -751,7 +751,7 @@
 					"response": []
 				},
 				{
-					"name": "register with valid email but weak password",
+					"name": "register with valid email but weak password with range",
 					"event": [
 						{
 							"listen": "test",
@@ -880,7 +880,7 @@
 					"response": []
 				},
 				{
-					"name": "register with valid email & strong password",
+					"name": "register with valid email & strong password within range",
 					"event": [
 						{
 							"listen": "test",
@@ -903,17 +903,17 @@
 									"    pm.expect(responseBody.message).to.eql(\"User account created successfully\")\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Data property have name same as name stored on variable\", function () {\r",
+									"pm.test(\"Store name on environemnet variable name 'name' and validate\", function () {\r",
 									"    const responseBody = pm.response.json();\r",
 									"    pm.environment.set('name', responseBody.data.name)\r",
 									"    let name = pm.environment.get(\"name\")\r",
 									"    pm.expect(responseBody.data.name).to.eql(name)\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Data property have email same as email stored on variable\", function () {\r",
+									"pm.test(\"Store email on environemnet variable name 'email' and validate\", function () {\r",
 									"    const responseBody = pm.response.json();\r",
-									"    pm.environment.set('validEmail', responseBody.data.email)\r",
-									"    let emailID = pm.environment.get(\"validEmail\")\r",
+									"    pm.environment.set('validEemail', responseBody.data.email)\r",
+									"    let emailID = pm.environment.get(\"validEemail\")\r",
 									"    pm.expect(responseBody.data.email).to.eql(emailID)\r",
 									"});\r",
 									"\r",
@@ -1231,7 +1231,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"\"\r\n}",
+							"raw": "{\r\n    \"email\": \"{{validEmail}}\",\r\n    \"password\": \"\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1629,7 +1629,7 @@
 			"name": "GET user profile",
 			"item": [
 				{
-					"name": "GET profile with POST request with auth",
+					"name": "GET profile with POST request with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -1676,7 +1676,7 @@
 					"response": []
 				},
 				{
-					"name": "GET profile without auth",
+					"name": "GET profile without token",
 					"event": [
 						{
 							"listen": "test",
@@ -1727,7 +1727,70 @@
 					"response": []
 				},
 				{
-					"name": "GET user profile correctly with auth",
+					"name": "GET profile with invalid token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(401);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'Access token is not valid or has expired, you will need to login'\", function () {\r",
+									"    const responseBody = pm.response.json()\r",
+									"    pm.expect(responseBody.message).to.eql(\"Access token is not valid or has expired, you will need to login\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is text/html\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "jkdfbhjsd832y8932dd",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "{{tokenType}}",
+								"value": "{{tokenID}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{apiEndpoint}}/users/profile",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						},
+						"description": "Fetch User Profile (GET) This is a negative scenerio where a user tries to fetch profile information like \\[email, name, id\\] after successful login using without Authentication Token."
+					},
+					"response": []
+				},
+				{
+					"name": "GET user profile correctly with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -1846,7 +1909,7 @@
 			"name": "Update user profile",
 			"item": [
 				{
-					"name": "update user profile without mandatory field with auth",
+					"name": "update user's profile without mandatory field with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -1908,7 +1971,7 @@
 					"response": []
 				},
 				{
-					"name": "update username below 3 character with auth",
+					"name": "update user's name with below 3 character with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -1970,7 +2033,7 @@
 					"response": []
 				},
 				{
-					"name": "update username above 30 character with auth",
+					"name": "update user's name with above 30 character with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -2032,7 +2095,7 @@
 					"response": []
 				},
 				{
-					"name": "update user profile without auth",
+					"name": "update user's profile without token",
 					"event": [
 						{
 							"listen": "test",
@@ -2086,7 +2149,73 @@
 					"response": []
 				},
 				{
-					"name": "update user profile correctly with auth",
+					"name": "update user's profile with invalid token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(401);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'NAccess token is not valid or has expired, you will need to login'\", function () {\r",
+									"    const responseBody = pm.response.json()\r",
+									"    pm.expect(responseBody.message).to.eql(\"Access token is not valid or has expired, you will need to login\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is text/html\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "jkdfbhjsd832y8932dd",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{newName}}\",\r\n    \"phone\": \"{{contact}}\",\r\n    \"company\": \"{{company}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/profile",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						},
+						"description": "Update user profile (PATCH) This is a neagtive scenerio where a user tries to apply partial modifications to the profile with invalid token."
+					},
+					"response": []
+				},
+				{
+					"name": "update user profile correctly with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -2213,7 +2342,7 @@
 			"name": "GET user profile after updating",
 			"item": [
 				{
-					"name": "GET user profile after updating profile with auth",
+					"name": "GET user profile after updating profile with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -2288,7 +2417,7 @@
 			"name": "Forget Password",
 			"item": [
 				{
-					"name": "send reset password link on unregistered email with auth",
+					"name": "send password reset link on unregistered email with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -2347,7 +2476,7 @@
 					"response": []
 				},
 				{
-					"name": "send reset password link on invalid email with auth",
+					"name": "send password reset link on invalid email with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -2406,7 +2535,7 @@
 					"response": []
 				},
 				{
-					"name": "send reset password link on registered email with auth",
+					"name": "send password reset link on registered email with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -2471,7 +2600,7 @@
 			"name": "Change password",
 			"item": [
 				{
-					"name": "change password with same current password with auth",
+					"name": "change password with same current password with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -2530,7 +2659,7 @@
 					"response": []
 				},
 				{
-					"name": "change password i.e. below 6 characters with auth",
+					"name": "change password with below 6 characters with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -2589,7 +2718,7 @@
 					"response": []
 				},
 				{
-					"name": "change password i.e. above 30 characters with auth",
+					"name": "change password with above 30 characters with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -2648,7 +2777,7 @@
 					"response": []
 				},
 				{
-					"name": "change password where old password is incorrect with auth",
+					"name": "change password where old password is incorrect with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -2707,7 +2836,73 @@
 					"response": []
 				},
 				{
-					"name": "change password to weak one with auth",
+					"name": "change password with invalid token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(401);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'NAccess token is not valid or has expired, you will need to login'\", function () {\r",
+									"    const responseBody = pm.response.json()\r",
+									"    pm.expect(responseBody.message).to.eql(\"Access token is not valid or has expired, you will need to login\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is text/html\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "jkdfbhjsd832y8932dd",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currentPassword\": \"{{password}}\",\r\n    \"newPassword\": \"{{newPassword}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiEndpoint}}/users/change-password",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"change-password"
+							]
+						},
+						"description": "Change password (POST): This is a neagtive scenerio where a user tries to change password with invalid token."
+					},
+					"response": []
+				},
+				{
+					"name": "change password to weak one with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -2769,7 +2964,7 @@
 					"response": []
 				},
 				{
-					"name": "change password to strong password with auth",
+					"name": "change password to strong one with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -2837,7 +3032,64 @@
 			"name": "Logout",
 			"item": [
 				{
-					"name": "logout with auth",
+					"name": "logout with invalid token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function(){\r",
+									"    pm.expect(pm.response.code).to.be.eql(401);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response body have 'NAccess token is not valid or has expired, you will need to login'\", function () {\r",
+									"    const responseBody = pm.response.json()\r",
+									"    pm.expect(responseBody.message).to.eql(\"Access token is not valid or has expired, you will need to login\")\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Header Content-Type is text/html\", function () {\r",
+									"    pm.response.to.have.header(\"content-type\", \"application/json; charset=utf-8\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "jkdfbhjsd832y8932dd",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{apiEndpoint}}/users/logout",
+							"host": [
+								"{{apiEndpoint}}"
+							],
+							"path": [
+								"users",
+								"logout"
+							]
+						},
+						"description": "Logout (DEL): This is a neagtive scenerio where a user tries to log out of current session without token."
+					},
+					"response": []
+				},
+				{
+					"name": "logout with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -2883,7 +3135,7 @@
 					"response": []
 				},
 				{
-					"name": "logout twice with auth",
+					"name": "logout twice with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -2935,7 +3187,7 @@
 			"name": "Login with old password",
 			"item": [
 				{
-					"name": "login via. old password",
+					"name": "login with old password",
 					"event": [
 						{
 							"listen": "test",
@@ -2972,7 +3224,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"raw": "{\r\n    \"email\": \"{{validEmail}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3000,7 +3252,7 @@
 			"name": "Login with new password",
 			"item": [
 				{
-					"name": "login via. new password",
+					"name": "login with new password",
 					"event": [
 						{
 							"listen": "test",
@@ -3078,7 +3330,7 @@
 			"name": "Create note",
 			"item": [
 				{
-					"name": "create note without auth token",
+					"name": "create note without token",
 					"event": [
 						{
 							"listen": "test",
@@ -3145,7 +3397,7 @@
 					"response": []
 				},
 				{
-					"name": "create note without mandatory fields with auth",
+					"name": "create note without mandatory fields with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -3199,7 +3451,7 @@
 					"response": []
 				},
 				{
-					"name": "create note with title below 4 characters with auth",
+					"name": "create note with title below 4 characters with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -3253,7 +3505,7 @@
 					"response": []
 				},
 				{
-					"name": "create note with title i.e. above 100 character with auth",
+					"name": "create note with title i.e. above 100 character with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -3307,7 +3559,7 @@
 					"response": []
 				},
 				{
-					"name": "create note with invalid auth token",
+					"name": "create note with invalid token",
 					"event": [
 						{
 							"listen": "test",
@@ -3380,7 +3632,7 @@
 					"response": []
 				},
 				{
-					"name": "create multiple note with auth at once in list",
+					"name": "create multiple note at once with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -3438,7 +3690,7 @@
 					"response": []
 				},
 				{
-					"name": "create note with auth with different language",
+					"name": "create note with different language with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -3515,7 +3767,7 @@
 					"response": []
 				},
 				{
-					"name": "create note with auth with English language",
+					"name": "create note with english language with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -3598,7 +3850,7 @@
 			"name": "GET all notes",
 			"item": [
 				{
-					"name": "GET all notes without auth",
+					"name": "GET all notes without token",
 					"event": [
 						{
 							"listen": "test",
@@ -3656,7 +3908,7 @@
 					"response": []
 				},
 				{
-					"name": "GET all notes with auth",
+					"name": "GET all notes with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -3716,7 +3968,7 @@
 			"name": "GET note by id",
 			"item": [
 				{
-					"name": "GET note by id without auth",
+					"name": "Fetch note by id without token but with valid note-id",
 					"event": [
 						{
 							"listen": "test",
@@ -3782,7 +4034,7 @@
 					"response": []
 				},
 				{
-					"name": "GET note by invalid id with auth",
+					"name": "Fetch note by id with valid token but with invalid note-id",
 					"event": [
 						{
 							"listen": "test",
@@ -3845,7 +4097,7 @@
 					"response": []
 				},
 				{
-					"name": "GET note by id with auth",
+					"name": "GET note by id with valid token and with valid note-id",
 					"event": [
 						{
 							"listen": "test",
@@ -3925,7 +4177,7 @@
 			"name": "Update note by id",
 			"item": [
 				{
-					"name": "update note by id without auth",
+					"name": "update note by id without token but with valid note-id",
 					"event": [
 						{
 							"listen": "test",
@@ -3999,7 +4251,7 @@
 					"response": []
 				},
 				{
-					"name": "update note by id with empty payload body with auth",
+					"name": "update note by id with empty payload body with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -4070,7 +4322,7 @@
 					"response": []
 				},
 				{
-					"name": "update note by id with incorrect id with auth",
+					"name": "update note by id with valid token but with invalid note-id",
 					"event": [
 						{
 							"listen": "test",
@@ -4141,7 +4393,7 @@
 					"response": []
 				},
 				{
-					"name": "update note by id with auth",
+					"name": "update note by id with valid token and valid note-id",
 					"event": [
 						{
 							"listen": "test",
@@ -4235,7 +4487,7 @@
 			"name": "GET note by id after updating note",
 			"item": [
 				{
-					"name": "GET note by id with auth after update",
+					"name": "GET note by id with valid token after update",
 					"event": [
 						{
 							"listen": "test",
@@ -4319,7 +4571,7 @@
 			"name": "Update completed status of note by id",
 			"item": [
 				{
-					"name": "update completed status of note by id without auth",
+					"name": "update completed status of note by id with invalid token but with valid note-id",
 					"event": [
 						{
 							"listen": "test",
@@ -4393,7 +4645,7 @@
 					"response": []
 				},
 				{
-					"name": "update completed status of note by id with invalid status value",
+					"name": "update completed status of note by id with valid token but with invalid payload body",
 					"event": [
 						{
 							"listen": "test",
@@ -4460,7 +4712,7 @@
 					"response": []
 				},
 				{
-					"name": "update completed status of note by id with auth",
+					"name": "update completed status of note by id with both valid token and note-id",
 					"event": [
 						{
 							"listen": "test",
@@ -4537,7 +4789,7 @@
 			"name": "Verify completed status of note by id after update",
 			"item": [
 				{
-					"name": "Verify completed status of note by id after update with auth",
+					"name": "Verify completed status of note by id after update with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -4605,7 +4857,7 @@
 			"name": "Delete note by id",
 			"item": [
 				{
-					"name": "delete note by id that doesn't exist with auth",
+					"name": "delete note by id with valid token but invalid note-id",
 					"event": [
 						{
 							"listen": "test",
@@ -4667,7 +4919,7 @@
 					"response": []
 				},
 				{
-					"name": "delete note by id without auth",
+					"name": "delete note by id without token but valid note-id",
 					"event": [
 						{
 							"listen": "test",
@@ -4728,7 +4980,7 @@
 					"response": []
 				},
 				{
-					"name": "delete note by id with auth",
+					"name": "delete note by id with both valid token and note-id",
 					"event": [
 						{
 							"listen": "test",
@@ -4790,7 +5042,7 @@
 					"response": []
 				},
 				{
-					"name": "delete note by id that was already deleted with auth",
+					"name": "delete note by id that was already deleted with valid token",
 					"event": [
 						{
 							"listen": "test",
@@ -4927,7 +5179,7 @@
 			"name": "Delete account",
 			"item": [
 				{
-					"name": "delete account without auth",
+					"name": "delete account without token",
 					"event": [
 						{
 							"listen": "test",
@@ -4980,7 +5232,7 @@
 					"response": []
 				},
 				{
-					"name": "delete account with invalid auth token",
+					"name": "delete account with invalid token",
 					"event": [
 						{
 							"listen": "test",
@@ -5045,7 +5297,7 @@
 					"response": []
 				},
 				{
-					"name": "delete account with auth",
+					"name": "delete account with valid token",
 					"event": [
 						{
 							"listen": "test",
